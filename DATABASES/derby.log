@@ -1,24 +1,7 @@
-Sun Oct 24 10:23:39 CST 2021 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
+Sun Oct 24 20:45:59 CST 2021 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Sun Oct 24 10:24:29 CST 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-017c-b31d-6082-00001641b406 
-on database directory D:\Fidélitas\Séptimo Cuatrimestre\Estructuras de Datos\Final_Project\Proyecto-Estructuras-De-Datos\DATABASES\Proyecto_Estructuras with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a 
-Loaded from file:/C:/Users/Freison/Music/db-derby-10.14.2.0-bin/db-derby-10.14.2.0-bin/lib/derby.jar
-java.vendor=Oracle Corporation
-java.runtime.version=15.0.2+7-27
-user.dir=C:\Users\Freison\Music\db-derby-10.14.2.0-bin\db-derby-10.14.2.0-bin
-os.name=Windows 10
-os.arch=amd64
-os.version=10.0
-derby.system.home=D:\Fidélitas\Séptimo Cuatrimestre\Estructuras de Datos\Final_Project\Proyecto-Estructuras-De-Datos\DATABASES
-Database Class Loader started - derby.database.classpath=''
-----------------------------------------------------------------
-Sun Oct 24 10:24:39 CST 2021:
-Shutting down instance a816c00e-017c-b31d-6082-00001641b406 on database directory D:\Fidélitas\Séptimo Cuatrimestre\Estructuras de Datos\Final_Project\Proyecto-Estructuras-De-Datos\DATABASES\Proyecto_Estructuras with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a 
-Sun Oct 24 10:24:39 CST 2021 Thread[DRDAConnThread_2,5,main] (DATABASE = Proyecto_Estructuras), (DRDAID = {2}), Database 'Proyecto_Estructuras' shutdown.
-----------------------------------------------------------------
-Sun Oct 24 10:24:47 CST 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance 6ede40af-017c-b31d-6082-00001641b406 
+Sun Oct 24 20:46:13 CST 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-017c-b557-24cb-00001641b406 
 on database directory D:\Fidélitas\Séptimo Cuatrimestre\Estructuras de Datos\Final_Project\Proyecto-Estructuras-De-Datos\DATABASES\Proyecto_Estructuras with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a 
 Loaded from file:/C:/Users/Freison/Music/db-derby-10.14.2.0-bin/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
