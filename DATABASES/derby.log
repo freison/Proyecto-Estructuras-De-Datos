@@ -12,3 +12,9 @@ os.arch=amd64
 os.version=10.0
 derby.system.home=D:\Fidélitas\Séptimo Cuatrimestre\Estructuras de Datos\Final_Project\Proyecto-Estructuras-De-Datos\DATABASES
 Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Sun Oct 24 21:09:18 CST 2021: Shutting down Derby engine
+----------------------------------------------------------------
+Sun Oct 24 21:09:18 CST 2021:
+Shutting down instance a816c00e-017c-b557-24cb-00001641b406 on database directory D:\Fidélitas\Séptimo Cuatrimestre\Estructuras de Datos\Final_Project\Proyecto-Estructuras-De-Datos\DATABASES\Proyecto_Estructuras with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a 
+----------------------------------------------------------------
