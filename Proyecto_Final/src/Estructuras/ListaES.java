@@ -60,6 +60,24 @@ public class ListaES {
     }
     
     public void extraerEspecifico(String cadena){
-        
+        if(!isEmptyLES()){
+            if(inicio.getDato().getCadena().equalsIgnoreCase(cadena)){
+                inicio = inicio.getSiguiente();
+            }
+            else{
+                NodoLES anterior;
+                NodoLES auxiliar;
+                anterior = inicio;
+                auxiliar = inicio.getSiguiente();
+                while((auxiliar!=null) &&
+                        (!auxiliar.getDato().getCadena().equals(cadena))){
+                    anterior = anterior.getSiguiente();
+                    auxiliar = auxiliar.getSiguiente();
+                }
+                if(auxiliar!=null){
+                    anterior.setSiguiente(auxiliar.getSiguiente());
+                }
+            }
+        }
     }
 }
