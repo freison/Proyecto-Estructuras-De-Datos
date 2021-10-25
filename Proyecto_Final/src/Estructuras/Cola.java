@@ -1,14 +1,53 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Estructuras;
 
-/**
- *
- * @author Freison
- */
+import javax.swing.JOptionPane;
+
 public class Cola {
+    // ATRIBUTOS DE LA CLASE.
+    private NodoCola inicio;
+    private NodoCola fin;
     
+    public Cola(){
+        this.inicio = null;
+        this.fin = null;
+    }
+    
+    // METODOS.
+    public boolean isColaEmpty(){
+        if(inicio == null){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public void encolar(String cadena){
+        DatoString dato = new DatoString();
+        dato.setCadena(cadena);
+        NodoCola nuevo = new NodoCola();
+        nuevo.setElemento(dato);
+        
+        if(isColaEmpty()){
+            inicio = nuevo;
+            fin = nuevo;
+        }
+        else{
+            fin.setSiguiente(nuevo);
+            fin = nuevo;
+        }
+    }
+    
+    public void desencolar(){
+        if(!isColaEmpty()){
+            inicio = inicio.getSiguiente();
+            JOptionPane.showMessageDialog(null, "El elemento fue extraído!", "Desencolar",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No existen elementos para desencolar, cola vacía!",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }
