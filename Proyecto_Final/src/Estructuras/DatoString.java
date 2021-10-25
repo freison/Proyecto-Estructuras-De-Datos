@@ -1,14 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Estructuras;
 
-/**
- *
- * @author Freison
- */
 public class DatoString {
+    // ATRIBUTOS DE LA CLASE.
+    private String cadena;
+    private int indice;
     
+    // CONSTRUCTOR.
+    public DatoString(){
+        this.cadena = "";
+        this.indice = -1;
+    }
+    
+    // GETTERS Y SETTERS.
+    public String getCadena() {
+        return cadena;
+    }
+
+    public void setCadena(String cadena) {
+        this.cadena = cadena;
+    }
+
+    public int getIndice() {
+        return indice;
+    }
+
+    public void setIndice(int indice) {
+        this.indice = indice;
+    }
 }
