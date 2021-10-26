@@ -54,9 +54,21 @@ public class Administrador extends Miembro {
                 + "values('"+ this.getNombres() + "', '"+ this.getApellidos()+ "', '"+ this.getUsuario() +"', "
                 + "'"+ this.getClave() +"', '"+ this.getCedula() +"')");
             
+            this.setMiembroId(this.buscarUltimoMiembro());
+            
+            String sqlQuery = "Insert into Administradores(MiembroId) values(?)";
+            PreparedStatement ps = cn.prepareStatement(sqlQuery);
+            ps.setInt(1, this.getMiembroId());
+            ps.executeUpdate();
             this.setMiembroId(MiembroId);
         }catch(Exception e){
-            
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 }

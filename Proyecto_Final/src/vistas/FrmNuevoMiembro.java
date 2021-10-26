@@ -5,6 +5,8 @@
  */
 package vistas;
 
+import proyecto_final.Administrador;
+
 /**
  *
  * @author Freison
@@ -16,6 +18,14 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
      */
     public FrmNuevoMiembro() {
         initComponents();
+        this.llenarComboBox();
+    }
+    
+    public void llenarComboBox(){
+        this.CmbTipoMiembro.removeAllItems();
+        this.CmbTipoMiembro.addItem("Administrador");
+        this.CmbTipoMiembro.addItem("Editor");
+        this.CmbTipoMiembro.addItem("Invitado");
     }
 
     /**
@@ -40,6 +50,8 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
         CmbTipoMiembro = new javax.swing.JComboBox<>();
         BtnGuardar = new javax.swing.JButton();
         BtnCerrar = new javax.swing.JButton();
+        LbCedula = new javax.swing.JLabel();
+        TxtCedula = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(20, 29, 38));
 
@@ -89,6 +101,11 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
         BtnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         BtnGuardar.setText("Guardar");
+        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarActionPerformed(evt);
+            }
+        });
 
         BtnCerrar.setBackground(new java.awt.Color(153, 153, 153));
         BtnCerrar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -100,6 +117,14 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
             }
         });
 
+        LbCedula.setBackground(new java.awt.Color(255, 255, 255));
+        LbCedula.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        LbCedula.setText("Cédula");
+
+        TxtCedula.setBackground(new java.awt.Color(20, 29, 38));
+        TxtCedula.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        TxtCedula.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,46 +134,46 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(112, 112, 112)
                                 .addComponent(Lb_Titulo))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addComponent(jLabel5)))
                         .addGap(0, 125, Short.MAX_VALUE))
-                    .addComponent(TxtClave)
-                    .addComponent(TxtUsuario)
-                    .addComponent(TxtApellidos, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TxtNombres)
-                            .addComponent(CmbTipoMiembro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(CmbTipoMiembro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(BtnCerrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BtnGuardar)
-                .addGap(93, 93, 93))
+                .addGap(105, 105, 105))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TxtNombres)
+                    .addComponent(TxtApellidos)
+                    .addComponent(TxtUsuario)
+                    .addComponent(TxtClave)
+                    .addComponent(TxtCedula)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(LbCedula))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Lb_Titulo)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TxtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -160,18 +185,22 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TxtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(LbCedula)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TxtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TxtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(CmbTipoMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 63, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 50, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BtnCerrar)
@@ -186,16 +215,31 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
         FrmMiembros miembros = new FrmMiembros();
         miembros.setVisible(true);
         FrmHome.Desktop_Main.add(miembros);
+        FrmHome.frameCount++;
         this.dispose();
     }//GEN-LAST:event_BtnCerrarActionPerformed
+
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+        String tipoMiembro = CmbTipoMiembro.getSelectedItem().toString();
+        
+        if(tipoMiembro.equalsIgnoreCase("Administrador")){
+            Administrador administrador = new Administrador("", TxtNombres.getText().trim(), 
+                    TxtApellidos.getText().trim(), TxtUsuario.getText().trim(), 
+                    TxtClave.getText().trim(), TxtCedula.getText().trim());
+            
+            administrador.Agregar();
+        }
+    }//GEN-LAST:event_BtnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCerrar;
     private javax.swing.JButton BtnGuardar;
     private javax.swing.JComboBox<String> CmbTipoMiembro;
+    private javax.swing.JLabel LbCedula;
     private javax.swing.JLabel Lb_Titulo;
     private javax.swing.JTextField TxtApellidos;
+    private javax.swing.JTextField TxtCedula;
     private javax.swing.JTextField TxtClave;
     private javax.swing.JTextField TxtNombres;
     private javax.swing.JTextField TxtUsuario;
