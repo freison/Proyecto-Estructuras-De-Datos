@@ -156,7 +156,11 @@ public class FrmLogin extends javax.swing.JFrame {
         try{
             if(miembro.iniciarSesion(this.TxtUsuario.getText().trim(), this.TxtClave.getText().trim())){
                 String usuario = TxtUsuario.getText().trim();
-                JOptionPane.showMessageDialog(null, "Usuario válido");
+                FrmHome home = new FrmHome();
+                home.setLocationRelativeTo(null);
+                home.setExtendedState(MAXIMIZED_BOTH);
+                home.setVisible(true);
+                this.dispose();
             }
             else{
                 JOptionPane.showMessageDialog(null, "Usuario y/o clave incorrectos");
