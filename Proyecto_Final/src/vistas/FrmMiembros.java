@@ -30,6 +30,9 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         Lb_Titulo = new javax.swing.JLabel();
+        BtnAgregarMiembro = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(20, 29, 38));
         setClosable(true);
@@ -58,6 +61,29 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
         Lb_Titulo.setForeground(new java.awt.Color(255, 255, 255));
         Lb_Titulo.setText("Miembros");
 
+        BtnAgregarMiembro.setBackground(new java.awt.Color(102, 102, 102));
+        BtnAgregarMiembro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BtnAgregarMiembro.setForeground(new java.awt.Color(255, 255, 255));
+        BtnAgregarMiembro.setText("Agregar");
+        BtnAgregarMiembro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarMiembroActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -65,14 +91,24 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(319, 319, 319)
                 .addComponent(Lb_Titulo)
-                .addContainerGap(320, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BtnAgregarMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Lb_Titulo)
-                .addContainerGap(368, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BtnAgregarMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -83,8 +119,18 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
         FrmHome.frameCount--;
     }//GEN-LAST:event_formInternalFrameClosed
 
+    private void BtnAgregarMiembroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarMiembroActionPerformed
+        FrmNuevoMiembro nuevoMiembro = new FrmNuevoMiembro();
+        nuevoMiembro.setVisible(true);
+        FrmHome.Desktop_Main.add(nuevoMiembro);
+        this.dispose();
+    }//GEN-LAST:event_BtnAgregarMiembroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnAgregarMiembro;
     private javax.swing.JLabel Lb_Titulo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

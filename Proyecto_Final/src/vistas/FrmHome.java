@@ -215,7 +215,7 @@ public class FrmHome extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnMiembros;
     private javax.swing.JButton BtnProyectos;
-    private javax.swing.JDesktopPane Desktop_Main;
+    public static javax.swing.JDesktopPane Desktop_Main;
     private javax.swing.JLabel Lb_Saludo;
     private javax.swing.JLabel Lb_Titulo;
     private javax.swing.JPanel Panel_Izquierdo;

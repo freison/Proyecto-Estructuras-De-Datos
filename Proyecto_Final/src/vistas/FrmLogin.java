@@ -12,6 +12,8 @@ import proyecto_final.Miembro;
 import proyecto_final.Administrador;
 
 public class FrmLogin extends javax.swing.JFrame {
+    
+    public static FrmHome home = new FrmHome();
 
     public FrmLogin() {
         initComponents();
@@ -156,7 +158,6 @@ public class FrmLogin extends javax.swing.JFrame {
         try{
             if(miembro.iniciarSesion(this.TxtUsuario.getText().trim(), this.TxtClave.getText().trim())){
                 String usuario = TxtUsuario.getText().trim();
-                FrmHome home = new FrmHome();
                 home.setLocationRelativeTo(null);
                 home.setExtendedState(MAXIMIZED_BOTH);
                 home.setVisible(true);

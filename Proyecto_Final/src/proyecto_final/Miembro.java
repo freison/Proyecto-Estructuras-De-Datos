@@ -130,4 +130,30 @@ public abstract class Miembro {
         }
         return flag;
     }
+    
+    public abstract void Agregar();
+    
+    public int buscarUltimoMiembro(){
+        int Id = 0;
+        
+        java.sql.Connection cn = null;
+        try{
+            cn = connection.getConnection();
+            
+            Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from Miembros order by Id desc fetch first row only");
+            
+            while(rs.next()){
+                Id = rs.getInt("Id");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 }

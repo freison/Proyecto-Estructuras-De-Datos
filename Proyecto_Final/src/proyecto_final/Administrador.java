@@ -6,6 +6,11 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 public class Administrador extends Miembro {
     // ATRIBUTOS DE LA CLASE.
     private int MiembroId;
@@ -29,4 +34,29 @@ public class Administrador extends Miembro {
     // Constructor con parametros V3.
     
     // GETTERS Y SETTERS DE LA CLASE.
+    public int getMiembroId() {
+        return MiembroId;
+    }
+
+    public void setMiembroId(int MiembroId) {
+        this.MiembroId = MiembroId;
+    }
+    
+    // METODOS.
+    @Override
+    public void Agregar(){
+        java.sql.Connection cn = null;
+        try{
+            cn = connection.getConnection();
+            
+            Statement stmt = cn.createStatement();
+            stmt.executeUpdate("Insert into Miembros(nombres, apellidos, usuario, clave, cedula) "
+                + "values('"+ this.getNombres() + "', '"+ this.getApellidos()+ "', '"+ this.getUsuario() +"', "
+                + "'"+ this.getClave() +"', '"+ this.getCedula() +"')");
+            
+            this.setMiembroId(MiembroId);
+        }catch(Exception e){
+            
+        }
+    }
 }
