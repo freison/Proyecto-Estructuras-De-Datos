@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 public abstract class Miembro {
     // ATRIBUTOS DE LA CLASE.
@@ -105,6 +106,44 @@ public abstract class Miembro {
                 + "\nUsuario: " + this.getUsuario();
     }
     
+    public abstract void Agregar();
+    
+    /***
+     * Busca el id del último Miembro registrado.
+     * @return int
+     */
+    public int buscarUltimoMiembro(){
+        int Id = 0;
+        
+        java.sql.Connection cn = null;
+        try{
+            cn = connection.getConnection();
+            
+            Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from Miembros order by Id desc fetch first row only");
+            
+            while(rs.next()){
+                Id = rs.getInt("Id");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return Id;
+    }
+    
+    /***
+     * Valida los datos recibidos, permitiendo o denegando iniciar sesión.
+     * @param usuario
+     * @param clave
+     * @return boolean
+     */
     public boolean iniciarSesion(String usuario, String clave){
         boolean flag = false;
         java.sql.Connection cn = null;
@@ -131,9 +170,12 @@ public abstract class Miembro {
         return flag;
     }
     
-    public abstract void Agregar();
-    
-    public int buscarUltimoMiembro(){
+    /***
+     * Obtiene el Id de Miembro en base al usuario.
+     * @param usuario
+     * @return int
+     */
+    public int obtenerId(String usuario){
         int Id = 0;
         
         java.sql.Connection cn = null;
@@ -141,13 +183,14 @@ public abstract class Miembro {
             cn = connection.getConnection();
             
             Statement stmt = cn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from Miembros order by Id desc fetch first row only");
+            ResultSet rs = stmt.executeQuery("select m.ID from Miembros as m\n" +
+                                             "where m.usuario =   '"+usuario+"'");
             
             while(rs.next()){
-                Id = rs.getInt("Id");
+                Id = rs.getInt("ID");
             }
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }finally{
             try{
                 cn.close();
@@ -158,4 +201,4 @@ public abstract class Miembro {
         
         return Id;
     }
-}
+} // FIN DE CLASE ABSTRACTA MIEMBRO.

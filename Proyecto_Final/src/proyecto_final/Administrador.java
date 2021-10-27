@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 public class Administrador extends Miembro {
     // ATRIBUTOS DE LA CLASE.
@@ -70,5 +71,41 @@ public class Administrador extends Miembro {
                 System.out.println(e.getMessage());
             }
         }
+    }
+    
+    /***
+     * Calcula el total de Miembros existentes.
+     * @return int
+     */
+    public int totalMiembros(){
+        int total = 0;
+        java.sql.Connection cn = null;
+        try{
+            cn = connection.getConnection();
+            
+            Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery("select count(*) as Total from Miembros");
+            
+            while(rs.next()){
+                total = rs.getInt("Total");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return total;
+    }
+    
+    @Override
+    public int obtenerId(String usuario){
+        int Id = 0;
+        
+        return Id;
     }
 }
