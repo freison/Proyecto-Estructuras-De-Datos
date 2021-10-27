@@ -8,11 +8,23 @@ import javax.swing.JOptionPane;
 
 public class ListaES {
     private NodoLES inicio;
+    private int longitud;
     
     public ListaES(){
         this.inicio = null;
+        this.longitud = 0;
     }
     
+    // GETTERS Y SETTERS
+    public int getLongitud(){
+        return this.longitud;
+    }
+    
+    public void setLongitud(int longitud){
+        this.longitud = longitud;
+    }
+    
+    // MÉTODOS
     public boolean isEmptyLES(){
         if(inicio == null){
             return true;

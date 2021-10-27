@@ -1,7 +1,7 @@
 
 package Estructuras;
 
-public class DatoString {
+public class DatoString extends Dato {
     // ATRIBUTOS DE LA CLASE.
     private String cadena;
     private int indice;

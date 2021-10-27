@@ -3,7 +3,7 @@ package Estructuras;
 
 public class NodoCola {
     // ATRIBUTOS DE LA CLASE.
-    private DatoString elemento;
+    private Dato elemento;
     private NodoCola siguiente;
     
     // CONSTRUCTOR.
@@ -12,7 +12,7 @@ public class NodoCola {
     }
     
     // GETTERS Y SETTERS.
-    public DatoString getElemento() {
+    public Dato getElemento() {
         return elemento;
     }
 

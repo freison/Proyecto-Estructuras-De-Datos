@@ -7,10 +7,21 @@ public class Cola {
     // ATRIBUTOS DE LA CLASE.
     private NodoCola inicio;
     private NodoCola fin;
+    private int longitud;
     
     public Cola(){
         this.inicio = null;
         this.fin = null;
+        this.longitud = 0;
+    }
+    
+    // GETTERS Y SETTERS DE LA CLASE.
+    public int getLongitud(){
+        return this.longitud;
+    }
+    
+    public void setLongitud(int longitud){
+        this.longitud = longitud;
     }
     
     // METODOS.

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import Estructuras.ListaES;
+import Estructuras.Cola;
 
 public abstract class Miembro {
     // ATRIBUTOS DE LA CLASE.
@@ -107,6 +109,10 @@ public abstract class Miembro {
     }
     
     public abstract void Agregar();
+    
+    public Cola[] listarMiembros(){
+        
+    }
     
     /***
      * Busca el id del último Miembro registrado.
