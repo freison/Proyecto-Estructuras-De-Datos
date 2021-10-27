@@ -152,9 +152,9 @@ public abstract class Miembro {
                 id.encolar(rs.getInt("Id"));
                 nombres.encolar(rs.getString("Nombres"));
                 apellidos.encolar(rs.getString("Apellidos"));
-                usuarios.encolar("Usuario");
-                cedulas.encolar("Cedula");
-                roles.encolar("Rol");
+                usuarios.encolar(rs.getString("Usuario"));
+                cedulas.encolar(rs.getString("Cedula"));
+                roles.encolar(rs.getString("Rol"));
                 
                 id.setLongitud(id.getLongitud()+1);
                 nombres.setLongitud(id.getLongitud()+1);
@@ -163,12 +163,12 @@ public abstract class Miembro {
                 cedulas.setLongitud(id.getLongitud()+1);
                 roles.setLongitud(id.getLongitud()+1);
                 
-                id.getFin().getElemento().setIndice(indice);
-                nombres.getFin().getElemento().setIndice(indice);
-                apellidos.getFin().getElemento().setIndice(indice);
-                usuarios.getFin().getElemento().setIndice(indice);
-                cedulas.getFin().getElemento().setIndice(indice);
-                roles.getFin().getElemento().setIndice(indice);
+                id.getFin().setIndice(indice);
+                nombres.getFin().setIndice(indice);
+                apellidos.getFin().setIndice(indice);
+                usuarios.getFin().setIndice(indice);
+                cedulas.getFin().setIndice(indice);
+                roles.getFin().setIndice(indice);
                 indice++;
             }
         }catch(Exception e){

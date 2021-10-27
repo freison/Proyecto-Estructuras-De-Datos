@@ -5,10 +5,12 @@ public class NodoCola {
     // ATRIBUTOS DE LA CLASE.
     private Dato elemento;
     private NodoCola siguiente;
+    private int indice;
     
     // CONSTRUCTOR.
     public NodoCola(){
         this.siguiente = null;
+        this.indice = -1;
     }
     
     // GETTERS Y SETTERS.
@@ -27,5 +29,12 @@ public class NodoCola {
     public void setSiguiente(NodoCola siguiente) {
         this.siguiente = siguiente;
     }
-    
+
+    public int getIndice() {
+        return indice;
+    }
+
+    public void setIndice(int indice) {
+        this.indice = indice;
+    }
 }

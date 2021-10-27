@@ -6,6 +6,8 @@ import proyecto_final.Administrador;
 import Estructuras.Cola;
 
 public class FrmMiembros extends javax.swing.JInternalFrame {
+    
+    private Object[][] miembros;
 
     public FrmMiembros() {
         initComponents();
@@ -17,8 +19,24 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
             Administrador administrador = new Administrador();
             int total = administrador.totalMiembros();
             Cola[] Datos = administrador.listarMiembros();
-            System.out.println(Datos.length + " - " + Datos[0].getLongitud());
-            System.out.println(Datos[1].obtenerEspecifico(1).toDatoString().getCadena());
+            // System.out.println(Datos.length + " - " + Datos[0].getLongitud());
+            // System.out.println(Datos[1].obtenerEspecifico(1).toDatoString().getCadena()); 
+            miembros = new Object[total][6];
+            
+            for(int i=0; i<Datos[0].getLongitud(); i++){
+                for(int j=0; j<Datos.length; j++){
+                    if(j==0)
+                        miembros[i][j] = Datos[j].obtenerEspecifico(i).toDatoInt().getNumero();
+                    else
+                        miembros[i][j] = Datos[j].obtenerEspecifico(i).toDatoString().getCadena();
+                }
+            }
+            
+            for(int i=0; i<Datos[0].getLongitud(); i++){
+                for(int j=0; j<Datos.length; j++){
+                    System.out.println(miembros[i][j]);
+                }
+            }
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

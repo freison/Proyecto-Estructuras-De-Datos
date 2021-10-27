@@ -87,7 +87,7 @@ public class Cola {
         if(!isColaEmpty()){
             NodoCola aux = inicio;
             while(aux!=null){
-                if(indice == aux.getElemento().toDatoString().getIndice()){
+                if(indice == aux.getIndice()){
                     datoAuxiliar = aux.getElemento();
                 }
                 aux = aux.getSiguiente();
