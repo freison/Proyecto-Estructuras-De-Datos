@@ -83,9 +83,9 @@ public class Cola {
     }
     
     public Dato obtenerEspecifico(int indice){
+        Dato datoAuxiliar = null;
         if(!isColaEmpty()){
             NodoCola aux = inicio;
-            Dato datoAuxiliar = null;
             while(aux!=null){
                 if(indice == aux.getElemento().toDatoString().getIndice()){
                     datoAuxiliar = aux.getElemento();
@@ -94,6 +94,6 @@ public class Cola {
             }
         }
         
-        return null;
+        return datoAuxiliar;
     }
 }

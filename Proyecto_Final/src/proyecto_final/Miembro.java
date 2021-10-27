@@ -116,6 +116,7 @@ public abstract class Miembro {
      */
     public Cola[] listarMiembros(){
         java.sql.Connection cn = null;
+        int indice = 0;
         Cola id = new Cola();
         Cola nombres = new Cola();
         Cola apellidos = new Cola();
@@ -162,12 +163,13 @@ public abstract class Miembro {
                 cedulas.setLongitud(id.getLongitud()+1);
                 roles.setLongitud(id.getLongitud()+1);
                 
-                id.getFin().getElemento().setIndice(id.getFin().getElemento().getIndice() + 1);
-                nombres.getFin().getElemento().setIndice(nombres.getFin().getElemento().getIndice() + 1);
-                apellidos.getFin().getElemento().setIndice(apellidos.getFin().getElemento().getIndice() + 1);
-                usuarios.getFin().getElemento().setIndice(usuarios.getFin().getElemento().getIndice() + 1);
-                cedulas.getFin().getElemento().setIndice(cedulas.getFin().getElemento().getIndice() + 1);
-                roles.getFin().getElemento().setIndice(roles.getFin().getElemento().getIndice() + 1);
+                id.getFin().getElemento().setIndice(indice);
+                nombres.getFin().getElemento().setIndice(indice);
+                apellidos.getFin().getElemento().setIndice(indice);
+                usuarios.getFin().getElemento().setIndice(indice);
+                cedulas.getFin().getElemento().setIndice(indice);
+                roles.getFin().getElemento().setIndice(indice);
+                indice++;
             }
         }catch(Exception e){
             System.out.println(e.getMessage() + "3");
