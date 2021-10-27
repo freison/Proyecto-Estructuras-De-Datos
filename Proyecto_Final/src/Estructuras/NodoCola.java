@@ -16,7 +16,7 @@ public class NodoCola {
         return elemento;
     }
 
-    public void setElemento(DatoString elemento) {
+    public void setElemento(Dato elemento) {
         this.elemento = elemento;
     }
 

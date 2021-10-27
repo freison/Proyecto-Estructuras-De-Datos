@@ -2,7 +2,7 @@
 package Estructuras;
 
 public class NodoLES {
-    private DatoString dato;
+    private Dato dato;
     private NodoLES siguiente;
     
     public NodoLES(){
@@ -10,11 +10,11 @@ public class NodoLES {
     }
     
     // GETTERS Y SETTERS DE LA CLASE.
-    public DatoString getDato() {
+    public Dato getDato() {
         return dato;
     }
 
-    public void setDato(DatoString dato) {
+    public void setDato(Dato dato) {
         this.dato = dato;
     }
 

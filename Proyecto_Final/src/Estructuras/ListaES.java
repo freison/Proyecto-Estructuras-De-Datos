@@ -35,15 +35,15 @@ public class ListaES {
     }
     
     public void Agregar(String cadena, int indice){
-        DatoString dato = new DatoString();
-        dato.setCadena(cadena);
-        dato.setIndice(indice);
+        Dato dato = new DatoString();
+        dato.toDatoString().setCadena(cadena);
+        dato.toDatoString().setIndice(indice);
         NodoLES nuevo = new NodoLES();
         
         if(isEmptyLES()){
             inicio = nuevo;
         }
-        else if(dato.getCadena().compareTo(inicio.getDato().getCadena())<0){
+        else if(dato.toDatoString().getCadena().compareTo(inicio.getDato().toDatoString().getCadena())<0){
             nuevo.setSiguiente(inicio);
             inicio = nuevo;
         }
@@ -53,7 +53,7 @@ public class ListaES {
         else{
             NodoLES aux = inicio;
             while((aux.getSiguiente()!=null) && 
-                    (aux.getSiguiente().getDato().getCadena().compareTo(dato.getCadena())<0)){
+                    (aux.getSiguiente().getDato().toDatoString().getCadena().compareTo(dato.toDatoString().getCadena())<0)){
                 aux = aux.getSiguiente();
             }
             nuevo.setSiguiente(aux.getSiguiente());
@@ -73,7 +73,7 @@ public class ListaES {
     
     public void extraerEspecifico(String cadena){
         if(!isEmptyLES()){
-            if(inicio.getDato().getCadena().equalsIgnoreCase(cadena)){
+            if(inicio.getDato().toDatoString().getCadena().equalsIgnoreCase(cadena)){
                 inicio = inicio.getSiguiente();
             }
             else{
@@ -82,7 +82,7 @@ public class ListaES {
                 anterior = inicio;
                 auxiliar = inicio.getSiguiente();
                 while((auxiliar!=null) &&
-                        (!auxiliar.getDato().getCadena().equals(cadena))){
+                        (!auxiliar.getDato().toDatoString().getCadena().equals(cadena))){
                     anterior = anterior.getSiguiente();
                     auxiliar = auxiliar.getSiguiente();
                 }
