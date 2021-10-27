@@ -111,7 +111,57 @@ public abstract class Miembro {
     public abstract void Agregar();
     
     public Cola[] listarMiembros(){
+        java.sql.Connection cn = null;
+        Cola id = new Cola();
+        Cola nombres = new Cola();
+        Cola apellidos = new Cola();
+        Cola usuarios = new Cola();
+        Cola cedulas = new Cola();
+        Cola roles = new Cola();
         
+        Cola[] colas = new Cola[6];
+        
+        try{
+            cn = connection.getConnection();
+            
+            Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery("select m.ID,\n"
+                    + "    m.NOMBRES as Nombres,\n"
+                    + "    m.APELLIDOS as Apellidos,\n"
+                    + "    m.USUARIO as Usuario,\n"
+                    + "    m.CEDULA as Cedula,\n"
+                    + "case a.ID\n"
+                    + "    when is not null then 'Administrador'\n"
+                    + "    else\n"
+                    + "        case e.ID\n"
+                    + "            when is not null then 'Editor'\n"
+                    + "            else 'Invitado'\n"
+                    + "        end\n"
+                    + "end as Rol\n"
+                    + "from Miembros as m\n"
+                    + "left join Administradores as a on m.ID = a.MIEMBROID\n"
+                    + "left join Editores as e on m.ID = e.MIEMBROID\n"
+                    + "left join Invitados as i on m.ID = i.MIEMBROID");
+            
+            while(rs.next()){
+                id.encolar(rs.getInt("Id"));
+                nombres.encolar(rs.getString("Nombres"));
+                apellidos.encolar(rs.getShort("Apellidos"));
+                usuarios.encolar("Usuario");
+                cedulas.encolar("Cedula");
+                roles.encolar("Rol");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return colas;
     }
     
     /***

@@ -50,6 +50,13 @@ public class Cola {
         }
     }
     
+    public void encolar(int numero){
+        DatoInt dato = new DatoInt();
+        dato.setNumero(numero);
+        NodoCola nuevo = new NodoCola();
+        nuevo.setElemento(dato);
+    }
+    
     public void desencolar(){
         if(!isColaEmpty()){
             inicio = inicio.getSiguiente();
