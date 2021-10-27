@@ -110,6 +110,10 @@ public abstract class Miembro {
     
     public abstract void Agregar();
     
+    /***
+     * Obtiene todos los miembros registrados.
+     * @return Cola[]
+     */
     public Cola[] listarMiembros(){
         java.sql.Connection cn = null;
         Cola id = new Cola();
@@ -146,20 +150,41 @@ public abstract class Miembro {
             while(rs.next()){
                 id.encolar(rs.getInt("Id"));
                 nombres.encolar(rs.getString("Nombres"));
-                apellidos.encolar(rs.getShort("Apellidos"));
+                apellidos.encolar(rs.getString("Apellidos"));
                 usuarios.encolar("Usuario");
                 cedulas.encolar("Cedula");
                 roles.encolar("Rol");
+                
+                id.setLongitud(id.getLongitud()+1);
+                nombres.setLongitud(id.getLongitud()+1);
+                apellidos.setLongitud(id.getLongitud()+1);
+                usuarios.setLongitud(id.getLongitud()+1);
+                cedulas.setLongitud(id.getLongitud()+1);
+                roles.setLongitud(id.getLongitud()+1);
+                
+                id.getFin().getElemento().setIndice(id.getFin().getElemento().getIndice() + 1);
+                nombres.getFin().getElemento().setIndice(nombres.getFin().getElemento().getIndice() + 1);
+                apellidos.getFin().getElemento().setIndice(apellidos.getFin().getElemento().getIndice() + 1);
+                usuarios.getFin().getElemento().setIndice(usuarios.getFin().getElemento().getIndice() + 1);
+                cedulas.getFin().getElemento().setIndice(cedulas.getFin().getElemento().getIndice() + 1);
+                roles.getFin().getElemento().setIndice(roles.getFin().getElemento().getIndice() + 1);
             }
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage() + "3");
         }finally{
             try{
                 cn.close();
             }catch(SQLException e){
-                System.out.println(e.getMessage());
+                System.out.println(e.getMessage() + "4");
             }
         }
+        
+        colas[0] = id;
+        colas[1] = nombres;
+        colas[2] = apellidos;
+        colas[3] = usuarios;
+        colas[4] = cedulas;
+        colas[5] = roles;
         
         return colas;
     }

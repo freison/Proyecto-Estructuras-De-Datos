@@ -24,6 +24,10 @@ public class Cola {
         this.longitud = longitud;
     }
     
+    public NodoCola getFin(){
+        return this.fin;
+    }
+    
     // METODOS.
     public boolean isColaEmpty(){
         if(inicio == null){
@@ -55,6 +59,15 @@ public class Cola {
         dato.setNumero(numero);
         NodoCola nuevo = new NodoCola();
         nuevo.setElemento(dato);
+        
+        if(isColaEmpty()){
+            inicio = nuevo;
+            fin = nuevo;
+        }
+        else{
+            fin.setSiguiente(nuevo);
+            fin = nuevo;
+        }
     }
     
     public void desencolar(){
@@ -67,5 +80,20 @@ public class Cola {
             JOptionPane.showMessageDialog(null, "No existen elementos para desencolar, cola vacía!",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public Dato obtenerEspecifico(int indice){
+        if(!isColaEmpty()){
+            NodoCola aux = inicio;
+            Dato datoAuxiliar = null;
+            while(aux!=null){
+                if(indice == aux.getElemento().toDatoString().getIndice()){
+                    datoAuxiliar = aux.getElemento();
+                }
+                aux = aux.getSiguiente();
+            }
+        }
+        
+        return null;
     }
 }

@@ -2,11 +2,26 @@
 package vistas;
 
 import javax.swing.JOptionPane;
+import proyecto_final.Administrador;
+import Estructuras.Cola;
 
 public class FrmMiembros extends javax.swing.JInternalFrame {
 
     public FrmMiembros() {
         initComponents();
+        this.obtenerDatos();
+    }
+    
+    public void obtenerDatos(){
+        try{
+            Administrador administrador = new Administrador();
+            int total = administrador.totalMiembros();
+            Cola[] Datos = administrador.listarMiembros();
+            System.out.println(Datos.length + " - " + Datos[0].getLongitud());
+            System.out.println(Datos[1].obtenerEspecifico(1).toDatoString().getCadena());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @SuppressWarnings("unchecked")
