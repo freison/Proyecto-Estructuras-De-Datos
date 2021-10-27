@@ -4,17 +4,32 @@ package vistas;
 import javax.swing.JOptionPane;
 import proyecto_final.Administrador;
 import Estructuras.Cola;
+import javax.swing.table.DefaultTableModel;
 
 public class FrmMiembros extends javax.swing.JInternalFrame {
     
     private Object[][] miembros;
+    private static DefaultTableModel modelo = new DefaultTableModel();
+    private static final String nombresDeColumna[] = {
+        "Id", "Nombres", "Apellidos", "Usuario", "Cedula", "Rol"
+    };
 
     public FrmMiembros() {
+        llenarTabla();
         initComponents();
-        this.obtenerDatos();
     }
     
-    public void obtenerDatos(){
+    private void llenarTabla(){
+        this.obtenerDatos();
+        modelo = new DefaultTableModel(miembros, nombresDeColumna){
+            private static final long serialVersionUID = 1l;
+            public Class<?> getColumnClass(int column){
+                return column == 1 ? DefaultTableModel.class : String.class;
+            }
+        };
+    }
+    
+    private void obtenerDatos(){
         try{
             Administrador administrador = new Administrador();
             int total = administrador.totalMiembros();
@@ -31,12 +46,6 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
                         miembros[i][j] = Datos[j].obtenerEspecifico(i).toDatoString().getCadena();
                 }
             }
-            
-            for(int i=0; i<Datos[0].getLongitud(); i++){
-                for(int j=0; j<Datos.length; j++){
-                    System.out.println(miembros[i][j]);
-                }
-            }
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -49,7 +58,7 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
         Lb_Titulo = new javax.swing.JLabel();
         BtnAgregarMiembro = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        GridMiembros = new javax.swing.JTable(modelo);
 
         setBackground(new java.awt.Color(20, 29, 38));
         setClosable(true);
@@ -88,18 +97,8 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        GridMiembros.setModel(modelo);
+        jScrollPane1.setViewportView(GridMiembros);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,8 +145,8 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAgregarMiembro;
+    private javax.swing.JTable GridMiembros;
     private javax.swing.JLabel Lb_Titulo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
