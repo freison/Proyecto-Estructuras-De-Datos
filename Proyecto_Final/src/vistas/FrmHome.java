@@ -45,6 +45,7 @@ public class FrmHome extends javax.swing.JFrame {
 
         Lb_Titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Lb_Titulo.setForeground(new java.awt.Color(255, 255, 255));
+        Lb_Titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/home_24.png"))); // NOI18N
         Lb_Titulo.setText("HOME");
 
         Lb_Saludo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
