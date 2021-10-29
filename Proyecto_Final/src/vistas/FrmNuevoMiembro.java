@@ -7,6 +7,7 @@ package vistas;
 
 import proyecto_final.Administrador;
 import proyecto_final.Editor;
+import proyecto_final.Invitado;
 
 public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
 
@@ -20,6 +21,15 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
         this.CmbTipoMiembro.addItem("Administrador");
         this.CmbTipoMiembro.addItem("Editor");
         this.CmbTipoMiembro.addItem("Invitado");
+    }
+    
+    public void limpiarCampos(){
+        this.TxtNombres.setText("");
+        this.TxtApellidos.setText("");
+        this.TxtUsuario.setText("");
+        this.TxtClave.setText("");
+        this.TxtCedula.setText("");
+        this.CmbTipoMiembro.setSelectedIndex(0);
     }
 
     /**
@@ -48,6 +58,10 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
         TxtCedula = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(20, 29, 38));
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setTitle("Agregar Miembro");
 
         Lb_Titulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Lb_Titulo.setForeground(new java.awt.Color(255, 255, 255));
@@ -201,10 +215,12 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCerrarActionPerformed
-        FrmMiembros miembros = new FrmMiembros();
-        miembros.setVisible(true);
-        FrmHome.Desktop_Main.add(miembros);
-        FrmHome.frameCount++;
+        if(FrmHome.frameCount==0){
+            FrmMiembros miembros = new FrmMiembros();
+            miembros.setVisible(true);
+            FrmHome.Desktop_Main.add(miembros);
+            FrmHome.frameCount++;
+        }
         this.dispose();
     }//GEN-LAST:event_BtnCerrarActionPerformed
 
@@ -217,14 +233,21 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
                     TxtClave.getText().trim(), TxtCedula.getText().trim());
             
             administrador.Agregar();
-            
-            // Implement other user tipe (Editor, Invitado).
+            this.limpiarCampos();
         }
         else if(tipoMiembro.equalsIgnoreCase("Editor")){
             Editor editor = new Editor("", TxtNombres.getText().trim(), TxtApellidos.getText().trim(),
                     TxtUsuario.getText().trim(), TxtClave.getText().trim(), TxtCedula.getText().trim());
             
             editor.Agregar();
+            this.limpiarCampos();
+        }
+        else if(tipoMiembro.equalsIgnoreCase("Invitado")){
+            Invitado invitado = new Invitado("", TxtNombres.getText().trim(), TxtApellidos.getText().trim(),
+                    TxtUsuario.getText().trim(), TxtClave.getText().trim(), TxtCedula.getText().trim());
+            
+            invitado.Agregar();
+            this.limpiarCampos();
         }
     }//GEN-LAST:event_BtnGuardarActionPerformed
 

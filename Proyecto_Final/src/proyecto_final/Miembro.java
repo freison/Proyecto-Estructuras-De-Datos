@@ -108,6 +108,9 @@ public abstract class Miembro {
                 + "\nUsuario: " + this.getUsuario();
     }
     
+    /***
+     * Metodo que permite registrar un nuevo Miembro.
+     */
     public abstract void Agregar();
     
     /***
