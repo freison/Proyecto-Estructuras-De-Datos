@@ -15,6 +15,7 @@ public class FrmHome extends javax.swing.JFrame {
      * Creates new form FrmHome
      */
     public static int frameCount = 0;
+    public static int frameCountProject = 0;
     
     public FrmHome() {
         initComponents();
@@ -80,6 +81,11 @@ public class FrmHome extends javax.swing.JFrame {
         BtnProyectos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnProyectos.setForeground(new java.awt.Color(0, 172, 238));
         BtnProyectos.setText("Proyectos");
+        BtnProyectos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnProyectosActionPerformed(evt);
+            }
+        });
 
         Panel_Tareas_Asignadas.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -171,7 +177,7 @@ public class FrmHome extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnMiembrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMiembrosActionPerformed
-        // TODO add your handling code here:
+
         if(frameCount==0){
             FrmMiembros miembros = new FrmMiembros();
             miembros.setVisible(true);
@@ -179,6 +185,15 @@ public class FrmHome extends javax.swing.JFrame {
             frameCount++;
         }
     }//GEN-LAST:event_BtnMiembrosActionPerformed
+
+    private void BtnProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnProyectosActionPerformed
+        if(frameCountProject==0){
+            FrmProyecto proyectos = new FrmProyecto();
+            proyectos.setVisible(true);
+            this.Desktop_Main.add(proyectos);
+            frameCountProject++;
+        }
+    }//GEN-LAST:event_BtnProyectosActionPerformed
 
     /**
      * @param args the command line arguments
