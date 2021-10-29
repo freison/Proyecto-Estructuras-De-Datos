@@ -67,6 +67,7 @@ public class FrmHome extends javax.swing.JFrame {
         BtnMiembros.setBackground(new java.awt.Color(153, 216, 240));
         BtnMiembros.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnMiembros.setForeground(new java.awt.Color(0, 172, 238));
+        BtnMiembros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/members_24.png"))); // NOI18N
         BtnMiembros.setText("Miembros");
         BtnMiembros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,17 +101,18 @@ public class FrmHome extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        Desktop_Main.setBackground(new java.awt.Color(153, 153, 153));
+        Desktop_Main.setBackground(new java.awt.Color(20, 29, 38));
+        Desktop_Main.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, null, null, null, new java.awt.Color(153, 216, 240)));
 
         javax.swing.GroupLayout Desktop_MainLayout = new javax.swing.GroupLayout(Desktop_Main);
         Desktop_Main.setLayout(Desktop_MainLayout);
         Desktop_MainLayout.setHorizontalGroup(
             Desktop_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 659, Short.MAX_VALUE)
+            .addGap(0, 653, Short.MAX_VALUE)
         );
         Desktop_MainLayout.setVerticalGroup(
             Desktop_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 436, Short.MAX_VALUE)
+            .addGap(0, 430, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout Panel_PrincipalLayout = new javax.swing.GroupLayout(Panel_Principal);
@@ -157,11 +159,11 @@ public class FrmHome extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel_Principal, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
+            .addComponent(Panel_Principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel_Principal, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+            .addComponent(Panel_Principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
