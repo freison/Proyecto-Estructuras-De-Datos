@@ -1,4 +1,7 @@
 
+/***
+ * FrmNuevoMiembro.
+ */
 package vistas;
 
 import proyecto_final.Administrador;
