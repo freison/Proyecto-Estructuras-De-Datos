@@ -6,6 +6,7 @@
 package vistas;
 
 import proyecto_final.Administrador;
+import proyecto_final.Editor;
 
 public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
 
@@ -218,6 +219,12 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
             administrador.Agregar();
             
             // Implement other user tipe (Editor, Invitado).
+        }
+        else if(tipoMiembro.equalsIgnoreCase("Editor")){
+            Editor editor = new Editor("", TxtNombres.getText().trim(), TxtApellidos.getText().trim(),
+                    TxtUsuario.getText().trim(), TxtClave.getText().trim(), TxtCedula.getText().trim());
+            
+            editor.Agregar();
         }
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
