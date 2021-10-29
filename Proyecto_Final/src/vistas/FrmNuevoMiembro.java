@@ -119,6 +119,7 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
 
         LbCedula.setBackground(new java.awt.Color(255, 255, 255));
         LbCedula.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        LbCedula.setForeground(new java.awt.Color(255, 255, 255));
         LbCedula.setText("Cédula");
 
         TxtCedula.setBackground(new java.awt.Color(20, 29, 38));
