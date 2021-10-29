@@ -95,8 +95,6 @@ public class FrmNuevoMiembro extends javax.swing.JInternalFrame {
         TxtClave.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         TxtClave.setForeground(new java.awt.Color(255, 255, 255));
 
-        CmbTipoMiembro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         BtnGuardar.setBackground(new java.awt.Color(153, 153, 153));
         BtnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnGuardar.setForeground(new java.awt.Color(255, 255, 255));
