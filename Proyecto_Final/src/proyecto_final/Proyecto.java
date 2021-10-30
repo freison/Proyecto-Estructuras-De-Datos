@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import Estructuras.Pila;
 
 public class Proyecto {
     // ATRIBUTOS DE LA CLASE.
@@ -79,5 +80,13 @@ public class Proyecto {
         }
         
         return Id;
+    }
+    
+    public void Agregar(String[] datosUsuario, boolean tipo){
+        Administrador administrador = new Administrador();
+        java.sql.Connection cn = null;
+        int MiembroId = administrador.obtenerId(datosUsuario[0]);
+        
+        // NEEDS TO BE IMPLEMENTED.
     }
 }
