@@ -108,4 +108,10 @@ public class Administrador extends Miembro {
         
         return Id;
     }
+    
+    public int obtenerMiembroId(String usuario){
+        int Id = super.obtenerId(usuario);
+        
+        return Id;
+    }
 }
