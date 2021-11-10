@@ -85,8 +85,32 @@ public class Proyecto {
     public void Agregar(String[] datosUsuario, boolean tipo){
         Administrador administrador = new Administrador();
         java.sql.Connection cn = null;
-        int MiembroId = administrador.obtenerId(datosUsuario[0]);
-        
-        // NEEDS TO BE IMPLEMENTED.
+        int MiembroId = administrador.obtenerMiembroId(datosUsuario[0]);
+        int AdministradorId = administrador.obtenerId(datosUsuario[0]);
+        int ProyectoId = 0;
+        try{
+            cn = connection.getConnection();
+            PreparedStatement stmt = cn.prepareStatement(
+                    "insert into Proyectos(nombre, descripcion, AdministradorId, Tipo) values(?, ?, ?, ?)");
+            stmt.setString(1, this.getNombre());
+            stmt.setString(2, this.getDescripcion());
+            stmt.setInt(3, AdministradorId);
+            stmt.setBoolean(4, tipo);
+            stmt.executeUpdate();
+            
+            ProyectoId = this.buscarUltimoProyecto();
+            
+            String sqlQuery = "insert into Detalle_Proyectos_Participacion(MiembroId, ProyectoId) values(?, ?)";
+            PreparedStatement p = cn.prepareStatement(sqlQuery);
+            p.setInt(1, MiembroId);
+            p.setInt(2, ProyectoId);
+            p.executeUpdate();
+            
+            if(!tipo){
+                // NEEDS IMPLEMENTATION.
+            }
+        }catch(Exception e){
+            
+        }
     }
 }

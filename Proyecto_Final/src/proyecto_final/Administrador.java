@@ -106,6 +106,29 @@ public class Administrador extends Miembro {
     public int obtenerId(String usuario){
         int Id = 0;
         
+        java.sql.Connection cn = null;
+        try{
+            cn = connection.getConnection();
+            
+            Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery("select a.ID from Miembros as m\n" +
+                                             "left join Administradores as a\n" +
+                                             "on m.ID = a.MIEMBROID\n" +
+                                             "where m.usuario =  '"+usuario+"'");
+            
+            while(rs.next()){
+                Id = rs.getInt(ID);
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
         return Id;
     }
     
