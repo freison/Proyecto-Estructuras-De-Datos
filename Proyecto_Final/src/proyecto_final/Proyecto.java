@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import Estructuras.Pila;
+import javax.swing.JOptionPane;
 
 public class Proyecto {
     // ATRIBUTOS DE LA CLASE.
@@ -107,10 +108,28 @@ public class Proyecto {
             p.executeUpdate();
             
             if(!tipo){
-                // NEEDS IMPLEMENTATION.
+                EstadoTarea estados = new EstadoTarea();
+                
+                estados.setDescripcion("Por Hacer");
+                estados.Agregar(ProyectoId);
+                
+                estados.setDescripcion("En Proceso");
+                estados.Agregar(ProyectoId);
+                
+                estados.setDescripcion("Finalizado");
+                estados.Agregar(ProyectoId);
             }
-        }catch(Exception e){
             
+            JOptionPane.showMessageDialog(null, "Proyecto Agregado");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 }
