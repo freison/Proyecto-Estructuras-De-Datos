@@ -80,6 +80,7 @@ public class FrmHome extends javax.swing.JFrame {
         BtnProyectos.setBackground(new java.awt.Color(153, 216, 240));
         BtnProyectos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnProyectos.setForeground(new java.awt.Color(0, 172, 238));
+        BtnProyectos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Project.png"))); // NOI18N
         BtnProyectos.setText("Proyectos");
         BtnProyectos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

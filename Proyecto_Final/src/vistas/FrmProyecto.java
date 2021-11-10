@@ -122,9 +122,13 @@ public class FrmProyecto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        FrmNuevoProyecto nuevoProyecto = new FrmNuevoProyecto();
+        nuevoProyecto.setVisible(true);
+        FrmHome.Desktop_Main.add(nuevoProyecto);
+        this.dispose();
+        // listModel.addElement(TxtTituloProyecto.getText().trim());
+        // pila.apilar(TxtTituloProyecto.getText().trim());
         
-        listModel.addElement(TxtTituloProyecto.getText().trim());
-        pila.apilar(TxtTituloProyecto.getText().trim());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
