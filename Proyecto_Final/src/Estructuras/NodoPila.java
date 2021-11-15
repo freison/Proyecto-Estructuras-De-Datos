@@ -5,6 +5,7 @@ public class NodoPila {
     // ATRIBUTOS DE LA CLASE.
     private DatoString elemento;
     private NodoPila siguiente;
+    private int indice;
     
     // CONSTRUCTOR.
     public NodoPila(){
@@ -26,5 +27,13 @@ public class NodoPila {
 
     public void setSiguiente(NodoPila siguiente) {
         this.siguiente = siguiente;
+    }
+    
+    public int getIndice(){
+        return this.indice;
+    }
+    
+    public void setIndice(int indice){
+        this.indice = indice;
     }
 }

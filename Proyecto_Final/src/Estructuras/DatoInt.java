@@ -8,7 +8,7 @@ public class DatoInt extends Dato {
     // CONSTRUCTOR;
     public DatoInt(){
         this.numero = 0;
-        super.setIndice(-1);
+        // super.setIndice(-1);
     }
     
     // GETTERS Y SETTERS.

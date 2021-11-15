@@ -37,7 +37,7 @@ public class ListaES {
     public void Agregar(String cadena, int indice){
         Dato dato = new DatoString();
         dato.toDatoString().setCadena(cadena);
-        dato.toDatoString().setIndice(indice);
+        // dato.toDatoString().setIndice(indice);
         NodoLES nuevo = new NodoLES();
         
         if(isEmptyLES()){

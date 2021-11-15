@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vistas;
 
-/**
- *
- * @author Freison
- */
+import Estructuras.Pila;
+
 public class FrmHome extends javax.swing.JFrame {
 
     /**
@@ -16,6 +10,7 @@ public class FrmHome extends javax.swing.JFrame {
      */
     public static int frameCount = 0;
     public static int frameCountProject = 0;
+    public static Pila[] datosUsuario = new Pila[3];
     
     public FrmHome() {
         initComponents();

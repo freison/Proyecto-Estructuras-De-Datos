@@ -42,4 +42,19 @@ public class Pila {
                     "No se pueden extraer elementos, pila vacía");
         }
     }
+    
+    public Dato obtenerEspecifico(int indice){
+        Dato datoAuxiliar = null;
+        if(!isPilaEmpty()){
+            NodoPila aux = cima;
+            while(aux!=null){
+                if(indice == aux.getIndice()){
+                    datoAuxiliar = aux.getElemento();
+                }
+                aux = aux.getSiguiente();
+            }
+        }
+        
+        return datoAuxiliar;
+    }
 }

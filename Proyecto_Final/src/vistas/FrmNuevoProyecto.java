@@ -5,6 +5,8 @@
  */
 package vistas;
 
+import proyecto_final.Proyecto;
+
 /**
  *
  * @author Freison
@@ -81,6 +83,11 @@ public class FrmNuevoProyecto extends javax.swing.JInternalFrame {
         BtnGuardar.setForeground(new java.awt.Color(0, 172, 238));
         BtnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/accept.png"))); // NOI18N
         BtnGuardar.setText("Guardar");
+        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,6 +148,13 @@ public class FrmNuevoProyecto extends javax.swing.JInternalFrame {
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_BtnCancelarActionPerformed
+
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+        Proyecto proyecto = new Proyecto();
+        proyecto.setNombre(this.TxtTitulo.getText().trim());
+        proyecto.setDescripcion(this.TxtDescripcion.getText().trim());
+        // proyecto.Agregar(datosUsuario, isIcon); // DATOSUSUARIO NEEDS TO BE SENT.
+    }//GEN-LAST:event_BtnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

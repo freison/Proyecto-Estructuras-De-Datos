@@ -8,7 +8,7 @@ public class DatoString extends Dato {
     // CONSTRUCTOR.
     public DatoString(){
         this.cadena = "";
-        super.setIndice(-1);
+        // super.setIndice(-1);
     }
     
     // GETTERS Y SETTERS.
