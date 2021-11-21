@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import proyecto_final.Miembro;
 import proyecto_final.Administrador;
+import Estructuras.Pila;
 
 public class FrmLogin extends javax.swing.JFrame {
     
@@ -158,6 +159,15 @@ public class FrmLogin extends javax.swing.JFrame {
         try{
             if(miembro.iniciarSesion(this.TxtUsuario.getText().trim(), this.TxtClave.getText().trim())){
                 String usuario = TxtUsuario.getText().trim();
+                String rol = miembro.getRol(usuario);
+                
+                FrmHome.datosUsuario.apilar(usuario);
+                FrmHome.datosUsuario.getCima().setIndice(0);
+                FrmHome.datosUsuario.apilar(rol);
+                FrmHome.datosUsuario.getCima().setIndice(0);
+                
+                home.setLb_Saludo_Text(FrmHome.datosUsuario.obtenerEspecifico(0).toDatoString().getCadena());
+                
                 home.setLocationRelativeTo(null);
                 home.setExtendedState(MAXIMIZED_BOTH);
                 home.setVisible(true);

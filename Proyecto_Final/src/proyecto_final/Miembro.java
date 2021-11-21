@@ -287,4 +287,53 @@ public abstract class Miembro {
         
         return Id;
     }
+    
+    public String getRol(String usuario){
+        String rol = "";
+        java.sql.Connection cn = null;
+        
+        try{
+            cn = connection.getConnection();
+            
+            String query = "select Rol from(\n"
+                    + "    select m.ID,\n"
+                    + "    m.NOMBRES as Nombres,\n"
+                    + "    m.APELLIDOS as Apellidos,\n"
+                    + "    m.USUARIO as Usuario,\n"
+                    + "    m.CEDULA as Cedula,\n"
+                    + "case a.ID\n"
+                    + "    when is not null then 'Administrador'\n"
+                    + "    else\n"
+                    + "        case e.ID\n"
+                    + "            when is not null then 'Editor'\n"
+                    + "            else 'Invitado'\n"
+                    + "        end\n"
+                    + "end as Rol\n"
+                    + "from Miembros as m\n"
+                    + "left join Administradores as a on m.ID = a.MIEMBROID\n"
+                    + "left join Editores as e on m.ID = e.MIEMBROID\n"
+                    + "left join Invitados as i on m.ID = i.MIEMBROID\n"
+                    + "where \n"
+                    + "m.USUARIO = ?\n"
+                    + ") as Rol";
+            
+            PreparedStatement pstmt = cn.prepareCall(query);
+            pstmt.setString(1, usuario);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                rol = rs.getString("Rol");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return rol;
+    }
 } // FIN DE CLASE ABSTRACTA MIEMBRO.

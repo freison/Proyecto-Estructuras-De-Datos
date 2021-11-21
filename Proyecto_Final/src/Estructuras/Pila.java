@@ -7,6 +7,11 @@ public class Pila {
     // ATRIBUTOS DE LA CLASE.
     private NodoPila cima;
     
+    // GETTER Y SETTERS DE LA CLASE.
+    public NodoPila getCima(){
+        return this.cima;
+    }
+    
     // METODOS DE LA CLASE.
     public boolean isPilaEmpty(){
         if(cima ==null){

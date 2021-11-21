@@ -2,6 +2,7 @@
 package vistas;
 
 import Estructuras.Pila;
+import javax.swing.JLabel;
 
 public class FrmHome extends javax.swing.JFrame {
 
@@ -10,7 +11,7 @@ public class FrmHome extends javax.swing.JFrame {
      */
     public static int frameCount = 0;
     public static int frameCountProject = 0;
-    public static Pila[] datosUsuario = new Pila[3];
+    public static Pila datosUsuario = new Pila();
     
     public FrmHome() {
         initComponents();
@@ -224,6 +225,10 @@ public class FrmHome extends javax.swing.JFrame {
                 new FrmHome().setVisible(true);
             }
         });
+    }
+
+    public void setLb_Saludo_Text(String text) {
+        this.Lb_Saludo.setText(this.Lb_Saludo.getText() + text);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
