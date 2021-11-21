@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import Estructuras.Pila;
+import Estructuras.ListaES;
 import javax.swing.JOptionPane;
 
 public class Proyecto {
@@ -83,11 +84,97 @@ public class Proyecto {
         return Id;
     }
     
-    public void Agregar(String[] datosUsuario, boolean tipo){
+    public Pila buscarProyecto(String proyecto){
+        Pila datos = new Pila();
+        
+        java.sql.Connection cn = null;
+        try{
+            int contador = 0;
+            cn = connection.getConnection();
+            Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from proyectos where nombre = '"+proyecto+"'");
+            
+            while(rs.next()){
+                datos.apilar(Integer.toString(rs.getInt("ID")));
+                datos.getCima().setIndice(contador);
+                contador++;
+                
+                datos.apilar(rs.getString("Nombre"));
+                datos.getCima().setIndice(contador);
+                contador++;
+                
+                datos.apilar(rs.getString("Descripcion"));
+                datos.getCima().setIndice(contador);
+                contador++;
+                
+                datos.apilar(rs.getString("Tipo"));
+                datos.getCima().setIndice(contador);
+                contador++;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return datos;
+    }
+    
+    public void agregarDetalleParticipacion(int miembroId, int proyectoId){
+        
+    }
+    
+    public ListaES[] listar(String usuario){
+        java.sql.Connection cn = null;
+        int contador = 0;
+        ListaES id = new ListaES();
+        ListaES nombres = new ListaES();
+        
+        ListaES[] listas = new ListaES[2];
+        
+        try{
+            cn = connection.getConnection();
+            
+            Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery("select p.ID, \n" +
+                    "    p.Nombre as Nombre\n" +
+                    "from Miembros as m\n" +
+                    "inner join Detalle_Proyectos_Participacion as dpp\n" +
+                    "on m.ID = dpp.MIEMBROID\n" +
+                    "inner join Proyectos as p\n" +
+                    "on dpp.PROYECTOID = p.ID\n" +
+                    "where m.USUARIO = '"+usuario+"'");
+            
+            while(rs.next()){
+                id.Agregar(Integer.toString(rs.getInt("Id")), contador);
+                nombres.Agregar(rs.getString("Nombre"), contador);
+                contador++;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        listas[0] = id;
+        listas[1] = nombres;
+        
+        return listas;
+    }
+    
+    public void Agregar(Pila datosUsuario, boolean tipo){
         Administrador administrador = new Administrador();
         java.sql.Connection cn = null;
-        int MiembroId = administrador.obtenerMiembroId(datosUsuario[0]);
-        int AdministradorId = administrador.obtenerId(datosUsuario[0]);
+        int MiembroId = administrador.obtenerMiembroId(datosUsuario.obtenerEspecifico(0).toDatoString().getCadena());
+        int AdministradorId = administrador.obtenerId(datosUsuario.obtenerEspecifico(0).toDatoString().getCadena());
         int ProyectoId = 0;
         try{
             cn = connection.getConnection();

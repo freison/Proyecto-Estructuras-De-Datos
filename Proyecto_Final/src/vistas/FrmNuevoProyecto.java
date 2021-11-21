@@ -159,7 +159,7 @@ public class FrmNuevoProyecto extends javax.swing.JInternalFrame {
         Proyecto proyecto = new Proyecto();
         proyecto.setNombre(this.TxtTitulo.getText().trim());
         proyecto.setDescripcion(this.TxtDescripcion.getText().trim());
-        // proyecto.Agregar(datosUsuario, isIcon); // DATOSUSUARIO NEEDS TO BE SENT.
+        proyecto.Agregar(FrmHome.datosUsuario, false);
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
 

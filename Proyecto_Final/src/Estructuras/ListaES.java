@@ -39,6 +39,8 @@ public class ListaES {
         dato.toDatoString().setCadena(cadena);
         // dato.toDatoString().setIndice(indice);
         NodoLES nuevo = new NodoLES();
+        nuevo.setDato(dato);
+        nuevo.setIndice(indice);
         
         if(isEmptyLES()){
             inicio = nuevo;

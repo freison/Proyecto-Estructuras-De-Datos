@@ -117,7 +117,7 @@ public class Administrador extends Miembro {
                                              "where m.usuario =  '"+usuario+"'");
             
             while(rs.next()){
-                Id = rs.getInt(ID);
+                Id = rs.getInt("ID");
             }
         }catch(Exception e){
             System.out.println(e.getMessage());

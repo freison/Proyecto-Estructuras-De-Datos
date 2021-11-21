@@ -4,6 +4,7 @@ package Estructuras;
 public class NodoLES {
     private Dato dato;
     private NodoLES siguiente;
+    private int indice;
     
     public NodoLES(){
         this.siguiente = null;
@@ -26,4 +27,11 @@ public class NodoLES {
         this.siguiente = siguiente;
     }
     
+    public void setIndice(int indice){
+        this.indice = indice;
+    }
+    
+    public int getIndice(){
+        return this.indice;
+    }
 }

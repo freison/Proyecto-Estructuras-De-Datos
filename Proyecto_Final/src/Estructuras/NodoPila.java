@@ -3,7 +3,7 @@ package Estructuras;
 
 public class NodoPila {
     // ATRIBUTOS DE LA CLASE.
-    private DatoString elemento;
+    private Dato elemento;
     private NodoPila siguiente;
     private int indice;
     
@@ -13,7 +13,7 @@ public class NodoPila {
     }
     
     // GETTERS Y SETTERS.
-    public DatoString getElemento() {
+    public Dato getElemento() {
         return elemento;
     }
 
