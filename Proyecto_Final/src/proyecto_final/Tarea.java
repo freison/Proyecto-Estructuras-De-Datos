@@ -72,7 +72,7 @@ public class Tarea {
             cn = connection.getConnection();
             
             String sqlQuery = "insert into DETALLE_TAREAS_MIEMBRO(MiembroId, TareaId) values(?, ?)";
-            PreparedStatement ps = cn.prepareStatement(query);
+            PreparedStatement ps = cn.prepareStatement(sqlQuery);
             ps.setInt(1, miembroId);
             ps.setInt(2, tareaId);
             ps.executeUpdate();
