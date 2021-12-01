@@ -90,6 +90,7 @@ public class FrmNuevoProyecto extends javax.swing.JInternalFrame {
             }
         });
 
+        CheckTablero.setBackground(new java.awt.Color(20, 29, 38));
         CheckTablero.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         CheckTablero.setForeground(new java.awt.Color(255, 255, 255));
         CheckTablero.setText("Tablero Personalizado");
@@ -152,6 +153,12 @@ public class FrmNuevoProyecto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
+        if(FrmHome.frameCountProject == 0){
+            FrmProyecto proyecto = new FrmProyecto();
+            proyecto.setVisible(true);
+            FrmHome.Desktop_Main.add(proyecto);
+            FrmHome.frameCountProject++;
+        }
         this.dispose();
     }//GEN-LAST:event_BtnCancelarActionPerformed
 

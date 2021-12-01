@@ -53,6 +53,11 @@ public class FrmLogin extends javax.swing.JFrame {
 
         TxtClave.setBackground(new java.awt.Color(20, 29, 38));
         TxtClave.setForeground(new java.awt.Color(255, 255, 255));
+        TxtClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtClaveKeyPressed(evt);
+            }
+        });
 
         BtnIngresar.setBackground(new java.awt.Color(153, 216, 240));
         BtnIngresar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -120,6 +125,12 @@ public class FrmLogin extends javax.swing.JFrame {
     private void BtnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIngresarActionPerformed
         this.iniciarSesion();
     }//GEN-LAST:event_BtnIngresarActionPerformed
+
+    private void TxtClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtClaveKeyPressed
+        if(evt.getKeyCode() == 10){
+            this.iniciarSesion();
+        }
+    }//GEN-LAST:event_TxtClaveKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

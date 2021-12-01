@@ -2,14 +2,18 @@
 package vistas;
 
 import Estructuras.Pila;
+import Estructuras.ListaES;
+import proyecto_final.Proyecto;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class FrmProyecto extends javax.swing.JInternalFrame {
 
-    private static DefaultListModel listModel = new DefaultListModel();
+    private static DefaultListModel listModel;
     Pila pila = new Pila();
     
     public FrmProyecto() {
+        llenarLista();
         initComponents();
     }
 
@@ -20,7 +24,7 @@ public class FrmProyecto extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Lista_Proyectos = new javax.swing.JList<>();
+        Lista_Proyectos = new javax.swing.JList<String>();
         TxtBusqueda = new javax.swing.JTextField();
         BtnBuscar = new javax.swing.JButton();
         BtnAgregarProyecto = new javax.swing.JButton();
@@ -66,8 +70,16 @@ public class FrmProyecto extends javax.swing.JInternalFrame {
             .addGap(0, 404, Short.MAX_VALUE)
         );
 
+        Lista_Proyectos.setBackground(new java.awt.Color(20, 29, 38));
         Lista_Proyectos.setFont(new java.awt.Font("Segoe UI", 1, 24));
         Lista_Proyectos.setModel(listModel);
+        Lista_Proyectos.setForeground(new java.awt.Color(255, 255, 255));
+        Lista_Proyectos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        Lista_Proyectos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                Lista_ProyectosValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(Lista_Proyectos);
 
         TxtBusqueda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -81,6 +93,7 @@ public class FrmProyecto extends javax.swing.JInternalFrame {
         });
 
         BtnAgregarProyecto.setText("Agregar");
+        BtnAgregarProyecto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BtnAgregarProyecto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnAgregarProyectoActionPerformed(evt);
@@ -120,13 +133,13 @@ public class FrmProyecto extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TxtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(BtnAgregarProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(28, 28, 28))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(TxtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -144,6 +157,17 @@ public class FrmProyecto extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
+    public void llenarLista(){
+        Proyecto proyecto = new Proyecto();
+        ListaES[] datos = proyecto.listar(FrmHome.datosUsuario.obtenerEspecifico(0).toDatoString().getCadena());
+        listModel = new DefaultListModel();
+        if(datos[0].getLongitud() > 0){ // datos[0].isLESEmpty();
+            for(int i = 0; i<datos[0].getLongitud(); i++){
+                listModel.addElement(datos[1].obtenerEspecifico(i).toDatoString().getCadena());
+            }
+        }
+    }
+    
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         FrmHome.frameCountProject--;
     }//GEN-LAST:event_formInternalFrameClosed
@@ -154,6 +178,15 @@ public class FrmProyecto extends javax.swing.JInternalFrame {
         FrmHome.Desktop_Main.add(nuevoProyecto);
         this.dispose();
     }//GEN-LAST:event_BtnAgregarProyectoActionPerformed
+
+    private void Lista_ProyectosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_Lista_ProyectosValueChanged
+        Proyecto proyecto = new Proyecto();
+        FrmDatosProyecto datosProyecto = new FrmDatosProyecto(proyecto.buscarProyecto(
+        this.Lista_Proyectos.getSelectedValue().toString()));
+        datosProyecto.setVisible(true);
+        FrmHome.Desktop_Main.add(datosProyecto);
+        this.dispose();
+    }//GEN-LAST:event_Lista_ProyectosValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
