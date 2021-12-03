@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import Estructuras.Cola;
+import Estructuras.ListaSC;
+import Estructuras.ListaDC;
 
 public class Tarea {
     // ATRIBUTOS DE LA CLASE.
@@ -85,5 +88,174 @@ public class Tarea {
                 System.out.println(e.getMessage());
             }
         }
+    }
+    
+    public int buscarUltimaTarea(){
+        int Id = 0;
+        
+        java.sql.Connection cn = null;
+        try{
+            cn = connection.getConnection();
+            Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from Tareas order by Id desc fetch first row only");
+            
+            while(rs.next()){
+                Id = rs.getInt("Id");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return Id;
+    }
+    
+    public Cola buscarTareaPorId(int tareaId){
+        java.sql.Connection cn = null;
+        Cola tarea = new Cola();
+        
+        try{
+            cn = connection.getConnection();
+            String sqlQuery = "select * from Tareas where id = ?";
+            
+            PreparedStatement ps = cn.prepareStatement(sqlQuery);
+            ps.setInt(1, tareaId);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                tarea.encolar(rs.getShort("Descripcion"));
+                tarea.encolar(rs.getInt("EstadoTareaId"));
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return tarea;
+    }
+    
+    public ListaSC[] listarTareasPorUsuario(String usuario){
+        ListaSC[] lista = new ListaSC[3];
+        
+        java.sql.Connection cn = null;
+        ListaSC tareas = new ListaSC();
+        ListaSC proyectos = new ListaSC();
+        ListaSC estados = new ListaSC();
+        int indice = 0;
+        
+        try{
+            cn = connection.getConnection();
+            
+            Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery("select t.DESCRIPCION as Tarea,\n" +
+                                            "    p.NOMBRE as Proyecto,\n" +
+                                            "    et.DESCRIPCION as Estado\n" +
+                                            "from PROYECTOS as p\n" +
+                                            "inner join ESTADOSTAREA as et\n" +
+                                            "on p.ID = et.PROYECTOID\n" +
+                                            "inner join TAREAS as t\n" +
+                                            "on et.ID = t.ESTADOTAREAID\n" +
+                                            "inner join DETALLE_TAREAS_MIEMBRO as dtm\n" +
+                                            "on t.ID = dtm.TAREAID\n" +
+                                            "inner join MIEMBROS as m\n" +
+                                            "on dtm.MIEMBROID = m.ID\n" +
+                                            "where usuario = '"+usuario+"'");
+            
+            while(rs.next()){
+                tareas.agregar(rs.getString("TAREA"));
+                tareas.getFin().setIndice(indice);
+                tareas.setLongitud(tareas.getLongitud()+1);
+                
+                proyectos.agregar(rs.getString("PROYECTO"));
+                proyectos.getFin().setIndice(indice);
+                proyectos.setLongitud(proyectos.getLongitud() + 1);
+                
+                estados.agregar(rs.getString("ESTADO"));
+                estados.getFin().setIndice(indice);
+                estados.setLongitud(estados.getLongitud() + 1);
+                
+                indice++;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        lista[0] = tareas;
+        lista[1] = proyectos;
+        lista[2] = estados;
+        
+        return lista;
+    }
+    
+    public ListaDC[] listarTareasPorProyecto(int proyectoId){
+        ListaDC[] lista = new ListaDC[3];
+        
+        java.sql.Connection cn = null;
+        ListaDC Id = new ListaDC();
+        ListaDC descripciones = new ListaDC();
+        ListaDC estados = new ListaDC();
+        int indice = 0;
+        
+        try{
+            cn = connection.getConnection();
+            
+            String sqlQuery = "select t.ID,\n" +
+                            "    t.DESCRIPCION,\n" +
+                            "    t.ESTADOTAREAID\n" +
+                            "from TAREAS as t\n" +
+                            "inner join PROYECTOS as p\n" +
+                            "on t.PROYECTOID = p.ID\n" +
+                            "where p.ID = ?";
+            
+            PreparedStatement ps = cn.prepareStatement(sqlQuery);
+            ps.setInt(1, proyectoId);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Id.agregarListaDC(rs.getInt("ID"));
+                Id.getFinDC().setIndice(indice);
+                Id.setLongitud(Id.getLongitud() + 1);
+                
+                descripciones.agregarListaDC(rs.getShort("DESCRIPCION"));
+                descripciones.getFinDC().setIndice(indice);
+                descripciones.setLongitud(descripciones.getLongitud() + 1);
+                
+                estados.agregarListaDC(rs.getString("ESTADOTAREAID"));
+                estados.getFinDC().setIndice(indice);
+                estados.setLongitud(estados.getLongitud() + 1);
+                
+                indice++;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        lista[0] = Id;
+        lista[1] = descripciones;
+        lista[2] = estados;
+        
+        return lista;
     }
 } // FIN DE CLASE TAREA.
