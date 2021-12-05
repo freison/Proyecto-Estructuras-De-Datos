@@ -38,7 +38,7 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
 
         ListaToDo.setBackground(new java.awt.Color(20, 29, 38));
         ListaToDo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ListaToDo.setForeground(new java.awt.Color(255, 255, 255));
+        ListaToDo.setForeground(new java.awt.Color(153, 0, 51));
         ListaToDo.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -48,7 +48,7 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
 
         ListaEnProceso.setBackground(new java.awt.Color(20, 29, 38));
         ListaEnProceso.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ListaEnProceso.setForeground(new java.awt.Color(255, 255, 255));
+        ListaEnProceso.setForeground(new java.awt.Color(153, 153, 0));
         ListaEnProceso.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -62,7 +62,7 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
 
         ListaFinalizado.setBackground(new java.awt.Color(20, 29, 38));
         ListaFinalizado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ListaFinalizado.setForeground(new java.awt.Color(255, 255, 255));
+        ListaFinalizado.setForeground(new java.awt.Color(0, 102, 0));
         ListaFinalizado.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -114,10 +114,9 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane3)
-                        .addComponent(jScrollPane1)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE))
                 .addContainerGap(133, Short.MAX_VALUE))
         );
 
