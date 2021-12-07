@@ -74,6 +74,11 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
         BtnAgregarTarea.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnAgregarTarea.setForeground(new java.awt.Color(0, 172, 238));
         BtnAgregarTarea.setText("Agregar Tarea");
+        BtnAgregarTarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarTareaActionPerformed(evt);
+            }
+        });
 
         ListaMiembros.setBackground(new java.awt.Color(20, 29, 38));
         ListaMiembros.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -122,6 +127,13 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnAgregarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarTareaActionPerformed
+        FrmNuevaTarea nuevaTarea = new FrmNuevaTarea();
+        nuevaTarea.setVisible(true);
+        FrmHome.Desktop_Main.add(nuevaTarea);
+        this.dispose();
+    }//GEN-LAST:event_BtnAgregarTareaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
