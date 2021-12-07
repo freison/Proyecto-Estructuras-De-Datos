@@ -2,8 +2,15 @@
 package vistas;
 
 public class FrmNuevaTarea extends javax.swing.JInternalFrame {
+    
+    private String idProyecto;
 
     public FrmNuevaTarea() {
+        initComponents();
+    }
+    
+    public FrmNuevaTarea(String idProyecto){
+        this.idProyecto = idProyecto;
         initComponents();
     }
 

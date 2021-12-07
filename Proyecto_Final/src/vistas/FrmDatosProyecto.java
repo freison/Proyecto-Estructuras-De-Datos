@@ -4,14 +4,16 @@ package vistas;
 import Estructuras.Pila;
 
 public class FrmDatosProyecto extends javax.swing.JInternalFrame {
+    private Pila datosProyecto;
 
     public FrmDatosProyecto() {
         initComponents();
     }
     
-    public FrmDatosProyecto(Pila datosUsuario){
+    public FrmDatosProyecto(Pila datosProyecto){
+        this.datosProyecto = datosProyecto;
         initComponents();
-        this.Lb_Titulo.setText(datosUsuario.obtenerEspecifico(1).toDatoString().getCadena());
+        this.Lb_Titulo.setText(datosProyecto.obtenerEspecifico(1).toDatoString().getCadena());
     }
 
     @SuppressWarnings("unchecked")
@@ -129,7 +131,7 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAgregarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarTareaActionPerformed
-        FrmNuevaTarea nuevaTarea = new FrmNuevaTarea();
+        FrmNuevaTarea nuevaTarea = new FrmNuevaTarea(datosProyecto.obtenerEspecifico(0).toDatoString().getCadena());
         nuevaTarea.setVisible(true);
         FrmHome.Desktop_Main.add(nuevaTarea);
         this.dispose();
