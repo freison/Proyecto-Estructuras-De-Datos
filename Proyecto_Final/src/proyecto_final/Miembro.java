@@ -5,10 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JOptionPane;
-import Estructuras.ListaES;
+import javax.swing.JOptionPane;;
 import Estructuras.Cola;
-import Estructuras.Arbol;
+import Estructuras.ListaES;
 
 public abstract class Miembro {
     // ATRIBUTOS DE LA CLASE.
@@ -196,8 +195,98 @@ public abstract class Miembro {
     }
     
     // METODO LISTAR MIEMBROS POR PROYECTO.
-    public void listarMiembrosPorProyecto(int proyectoId){
+    public ListaES[] listarMiembrosPorProyecto(int proyectoId){
+        java.sql.Connection cn = null;
+        ListaES id = new ListaES();
+        ListaES nombres = new ListaES();
+        ListaES apellidos = new ListaES();
+        ListaES usuarios = new ListaES();
+        ListaES cedulas = new ListaES();
+        ListaES roles = new ListaES();
         
+        ListaES[] listas = new ListaES[6];
+        int indice = 0;
+        
+        try{
+            cn = connection.getConnection();
+            
+            String sqlQuery = "select m.ID,\n" +
+                            "    m.NOMBRES,\n" +
+                            "    m.APELLIDOS,\n" +
+                            "    m.USUARIO,\n" +
+                            "    m.CEDULA,\n" +
+                            "    case a.ID\n" +
+                            "        when is not null then 'Administrador'\n" +
+                            "        else\n" +
+                            "            case e.ID\n" +
+                            "                when is not null then 'Editor'\n" +
+                            "                else 'Invitado'\n" +
+                            "            end\n" +
+                            "        end as Rol\n" +
+                            "from PROYECTOS as p\n" +
+                            "inner join DETALLE_PROYECTOS_PARTICIPACION as dmp\n" +
+                            "on p.ID = dmp.PROYECTOID\n" +
+                            "inner join MIEMBROS as m\n" +
+                            "on dmp.MIEMBROID = m.ID\n" +
+                            "left join ADMINISTRADORES as a\n" +
+                            "on m.ID = a.MIEMBROID\n" +
+                            "left join EDITORES as e\n" +
+                            "on m.ID = e.MIEMBROID\n" +
+                            "left join INVITADOS as i\n" +
+                            "on m.ID = i.MIEMBROID\n" +
+                            "where p.ID = ? and \n" +
+                            "case a.ID\n" +
+                            "when is not null then 'Administrador'\n" +
+                            "else\n" +
+                            "    case e.ID\n" +
+                            "        when is not null then 'Editor'\n" +
+                            "        else 'Invitado'\n" +
+                            "    end\n" +
+                            "end != 'Invitado'";
+            
+            PreparedStatement ps = cn.prepareStatement(sqlQuery);
+            ps.setInt(1, proyectoId);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                id.Agregar(rs.getInt("Id") + "", indice);
+                id.setLongitud(id.getLongitud() + 1);
+                
+                nombres.Agregar(rs.getString("Nombres"), indice);
+                nombres.setLongitud(nombres.getLongitud() + 1);
+                
+                apellidos.Agregar(rs.getString("Apellidos"), indice);
+                apellidos.setLongitud(apellidos.getLongitud() + 1);
+                
+                usuarios.Agregar(rs.getString("Usuario"), indice);
+                usuarios.setLongitud(usuarios.getLongitud() + 1);
+                
+                cedulas.Agregar(rs.getString("Cedula"), indice);
+                cedulas.setLongitud(cedulas.getLongitud() + 1);
+                
+                roles.Agregar(rs.getString("Rol"), indice);
+                roles.setLongitud(roles.getLongitud() + 1);
+                
+                indice++;
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        listas[0] = id;
+        listas[1] = nombres;
+        listas[2] = apellidos;
+        listas[3] = usuarios;
+        listas[4] = cedulas;
+        listas[5] = roles;
+        
+        return listas;
     }
     
     /***

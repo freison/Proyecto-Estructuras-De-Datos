@@ -35,6 +35,7 @@ public class FrmHome extends javax.swing.JFrame {
         Panel_Tareas_Asignadas = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Desktop_Main = new javax.swing.JDesktopPane();
+        TxtBuscarTareas = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,8 +117,12 @@ public class FrmHome extends javax.swing.JFrame {
         );
         Desktop_MainLayout.setVerticalGroup(
             Desktop_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addGap(0, 436, Short.MAX_VALUE)
         );
+
+        TxtBuscarTareas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TxtBuscarTareas.setForeground(new java.awt.Color(255, 255, 255));
+        TxtBuscarTareas.setText("Buscar tareas");
 
         javax.swing.GroupLayout Panel_PrincipalLayout = new javax.swing.GroupLayout(Panel_Principal);
         Panel_Principal.setLayout(Panel_PrincipalLayout);
@@ -132,7 +137,11 @@ public class FrmHome extends javax.swing.JFrame {
                     .addComponent(BtnProyectos, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
                     .addComponent(Panel_Tareas_Asignadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Desktop_Main)
+                .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Desktop_Main)
+                    .addGroup(Panel_PrincipalLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(TxtBuscarTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Panel_Izquierdo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -144,8 +153,10 @@ public class FrmHome extends javax.swing.JFrame {
                 .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Panel_Izquierdo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(Panel_PrincipalLayout.createSequentialGroup()
-                        .addComponent(Lb_Titulo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Lb_Titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TxtBuscarTareas))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(Panel_PrincipalLayout.createSequentialGroup()
                                 .addComponent(Lb_Saludo)
@@ -240,6 +251,7 @@ public class FrmHome extends javax.swing.JFrame {
     private javax.swing.JPanel Panel_Izquierdo;
     private javax.swing.JPanel Panel_Principal;
     private javax.swing.JPanel Panel_Tareas_Asignadas;
+    private javax.swing.JTextField TxtBuscarTareas;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
