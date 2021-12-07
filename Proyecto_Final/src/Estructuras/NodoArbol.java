@@ -5,6 +5,7 @@ public class NodoArbol {
     private Dato elemento;
     private NodoArbol enlaceIzq;
     private NodoArbol enlaceDer;
+    private int indice;
 
     public NodoArbol() {
         this.enlaceIzq = null;
@@ -33,5 +34,13 @@ public class NodoArbol {
 
     public void setEnlaceDer(NodoArbol enlaceDer) {
         this.enlaceDer = enlaceDer;
+    }
+
+    public int getIndice() {
+        return indice;
+    }
+
+    public void setIndice(int indice) {
+        this.indice = indice;
     }
 }

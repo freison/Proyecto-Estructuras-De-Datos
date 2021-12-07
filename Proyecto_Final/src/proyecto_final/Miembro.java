@@ -8,6 +8,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import Estructuras.ListaES;
 import Estructuras.Cola;
+import Estructuras.Arbol;
 
 public abstract class Miembro {
     // ATRIBUTOS DE LA CLASE.
@@ -195,7 +196,9 @@ public abstract class Miembro {
     }
     
     // METODO LISTAR MIEMBROS POR PROYECTO.
-    
+    public void listarMiembrosPorProyecto(int proyectoId){
+        
+    }
     
     /***
      * Busca el id del último Miembro registrado.
