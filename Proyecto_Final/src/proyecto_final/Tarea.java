@@ -258,4 +258,78 @@ public class Tarea {
         
         return lista;
     }
+    
+    public ListaDC[] listarDetalles(int tareaId){
+        ListaDC[] lista = new ListaDC[2];
+        
+        java.sql.Connection cn = null;
+        ListaDC id = new ListaDC();
+        ListaDC nombres = new ListaDC();
+        
+        try{
+            cn = connection.getConnection();
+            
+            String sqlQuery = "select m.ID, m.NOMBRES\n" +
+                            "from DETALLE_TAREAS_MIEMBRO as dtm\n" +
+                            "inner join MIEMBROS as m\n" +
+                            "on dtm.MIEMBROID = m.ID\n" +
+                            "where dtm.TAREAID = ?";
+            
+            PreparedStatement ps = cn.prepareStatement(sqlQuery);
+            ps.setInt(1, tareaId);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                id.agregarListaDC(rs.getInt("ID"));
+                nombres.agregarListaDC(rs.getString("NOMBRES"));
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }finally{
+            try{
+                cn.close();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        lista[0] = id;
+        lista[1] = nombres;
+        
+        return lista;
+    }
+    
+    public int listarUltimoDetalle(int tareaId){
+        java.sql.Connection cn = null;
+        
+        int detalleId = 0;
+        
+        try{
+            cn = connection.getConnection();
+            
+            String sqlQuery = "select m.ID, m.NOMBRES\n" +
+                            "from DETALLE_TAREAS_MIEMBRO as dtm\n" +
+                            "inner join MIEMBROS as m\n" +
+                            "on dtm.MIEMBROID = m.ID\n" +
+                            "where dtm.TAREAID = ?";
+            
+            PreparedStatement ps = cn.prepareStatement(sqlQuery);
+            ps.setInt(1, tareaId);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                detalleId = rs.getInt("ID");
+            }
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                cn.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        return detalleId;
+    }
 } // FIN DE CLASE TAREA.

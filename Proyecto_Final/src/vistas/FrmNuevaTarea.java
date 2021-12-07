@@ -1,7 +1,17 @@
 
 package vistas;
 
+import proyecto_final.Administrador;
+import Estructuras.ListaES;
+import javax.swing.table.DefaultTableModel;
+
 public class FrmNuevaTarea extends javax.swing.JInternalFrame {
+    
+    private Object[][] miembros;
+    private static DefaultTableModel modelo = new DefaultTableModel();
+    private static final String nombresDeColumna[] = {
+        "Id", "Nombres", "Apellidos", "Usuario", "Cedula", "Rol"
+    };
     
     private String idProyecto;
 
@@ -11,7 +21,42 @@ public class FrmNuevaTarea extends javax.swing.JInternalFrame {
     
     public FrmNuevaTarea(String idProyecto){
         this.idProyecto = idProyecto;
+        llenarTabla();
         initComponents();
+    }
+    
+    public void llenarTabla(){
+        this.obtenerDatos();
+        modelo = new DefaultTableModel(miembros, nombresDeColumna){
+            private static final long serialVersionUID = 1l;
+            public Class<?> getColumnClass(int column){
+                return column == 1 ? DefaultTableModel.class : String.class;
+            }
+        };
+    }
+    
+    public void obtenerDatos(){
+        try{
+            Administrador administrador = new Administrador();
+            int total = administrador.totalMiembros();
+            ListaES[] Datos = administrador.listarMiembrosPorProyecto(Integer.parseInt(idProyecto));
+            miembros = new Object[total][6];
+            
+            for(int i=0; i<Datos[0].getLongitud(); i++){
+                for(int j=0; j<Datos.length; j++){
+                    if(j==0){
+                        miembros[i][j] = Datos[j].obtenerEspecifico(i)
+                                .toDatoString().getCadena();
+                    }
+                    else{
+                        miembros[i][j] = Datos[j].obtenerEspecifico(i)
+                                .toDatoString().getCadena();
+                    }
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -22,7 +67,7 @@ public class FrmNuevaTarea extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TxtDescripcion = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaMiembros = new javax.swing.JTable(modelo);
         jScrollPane3 = new javax.swing.JScrollPane();
         ListaMiembrosAsignados = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
@@ -47,19 +92,11 @@ public class FrmNuevaTarea extends javax.swing.JInternalFrame {
         TxtDescripcion.setRows(5);
         jScrollPane1.setViewportView(TxtDescripcion);
 
-        jTable1.setBackground(new java.awt.Color(20, 29, 38));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
+        TablaMiembros.setBackground(new java.awt.Color(20, 29, 38));
+        TablaMiembros.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TablaMiembros.setForeground(new java.awt.Color(255, 255, 255));
+        TablaMiembros.setModel(modelo);
+        jScrollPane2.setViewportView(TablaMiembros);
 
         ListaMiembrosAsignados.setBackground(new java.awt.Color(20, 29, 38));
         jScrollPane3.setViewportView(ListaMiembrosAsignados);
@@ -147,6 +184,7 @@ public class FrmNuevaTarea extends javax.swing.JInternalFrame {
     private javax.swing.JButton BtnCancelar;
     private javax.swing.JButton BtnGuardar;
     private javax.swing.JList<String> ListaMiembrosAsignados;
+    private javax.swing.JTable TablaMiembros;
     private javax.swing.JTextArea TxtDescripcion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -154,6 +192,5 @@ public class FrmNuevaTarea extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
