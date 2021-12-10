@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import Estructuras.Cola;
 
 public class EstadoTarea {
     // ATRIBUTOS DE LA CLASE.
@@ -70,6 +71,49 @@ public class EstadoTarea {
                 System.out.println(e.getMessage());
             }
         }
+    }
+    
+    public Cola[] listarEstadosPorProyecto(int proyectoId){
+        java.sql.Connection cn = null;
+        Cola id = new Cola();
+        Cola descripcion = new Cola();
+        
+        Cola[] colas = new Cola[2];
+        int indice = 0;
+        
+        try{
+            cn = connection.getConnection();
+            
+            String sqlQuery = "Select * from ESTADOSTAREA where proyectoId = ?";
+            PreparedStatement ps = cn.prepareStatement(sqlQuery);
+            ps.setInt(1, proyectoId);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                id.encolar(rs.getInt("Id"));
+                id.getFin().setIndice(indice);
+                id.setLongitud(id.getLongitud() + 1)
+                        ;
+                descripcion.encolar(rs.getString("Descripcion"));
+                descripcion.getFin().setIndice(indice);
+                descripcion.setLongitud(descripcion.getLongitud() + 1);
+                
+                indice++;
+            }
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                cn.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        colas[0] = id;
+        colas[1] = descripcion;
+        
+        return colas;
     }
     
 } // FIN DE CLASE ESTADOTAREA

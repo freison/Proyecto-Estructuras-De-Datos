@@ -3,17 +3,24 @@ package vistas;
 
 import proyecto_final.Administrador;
 import Estructuras.ListaES;
+import javax.swing.JOptionPane;
+import proyecto_final.Tarea;
+import proyecto_final.EstadoTarea;
+import Estructuras.Cola;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 public class FrmNuevaTarea extends javax.swing.JInternalFrame {
     
     private Object[][] miembros;
     private static DefaultTableModel modelo = new DefaultTableModel();
+    private static DefaultListModel listModel = new DefaultListModel();
     private static final String nombresDeColumna[] = {
         "Id", "Nombres", "Apellidos", "Usuario", "Cedula", "Rol"
     };
     
     private String idProyecto;
+    private Integer tareaId = null;
 
     public FrmNuevaTarea() {
         initComponents();
@@ -22,6 +29,7 @@ public class FrmNuevaTarea extends javax.swing.JInternalFrame {
     public FrmNuevaTarea(String idProyecto){
         this.idProyecto = idProyecto;
         llenarTabla();
+        listModel = new DefaultListModel();
         initComponents();
     }
     
@@ -58,6 +66,45 @@ public class FrmNuevaTarea extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
     }
+    
+    public int obtenerIdSeleccionado(){
+        int id = 0;
+        try{
+            id = Integer.parseInt(
+            TablaMiembros.getValueAt(TablaMiembros.getSelectedRow(), 0).toString());
+        }catch(IndexOutOfBoundsException e){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un miembro");
+        }
+        
+        return id;
+    }
+    
+    public void agregarTareaTableroKamban(
+            int miembroId, Tarea tarea, int ultimaTareaId, Cola[] datosEstados){
+        // NEEDS TO BE IMPLEMENTED.
+    }
+    
+    public void agregarTareaTablero(
+            int miembroId, Tarea tarea, int ultimaTareaId, Cola[] datosEstados){
+        if(this.tareaId == null){
+            if(TxtDescripcion.isEnabled()){
+                tarea.Agregar(TxtDescripcion.getText().trim(), 
+                        datosEstados[0].obtenerEspecifico(0).toDatoInt().getNumero(),
+                        Integer.parseInt(this.idProyecto));
+                ultimaTareaId = tarea.buscarUltimaTarea();
+                tarea.agregarDetalle(miembroId, ultimaTareaId);
+                
+                listModel.addElement(TablaMiembros.getValueAt(TablaMiembros.getSelectedRow(), 1));
+                
+                this.TxtDescripcion.setEnabled(false);
+            }
+            else{
+                ultimaTareaId = tarea.buscarUltimaTarea();
+                tarea.agregarDetalle(miembroId, ultimaTareaId);
+                listModel.addElement(TablaMiembros.getValueAt(TablaMiembros.getSelectedRow(), 1));
+            }
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -69,7 +116,7 @@ public class FrmNuevaTarea extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaMiembros = new javax.swing.JTable(modelo);
         jScrollPane3 = new javax.swing.JScrollPane();
-        ListaMiembrosAsignados = new javax.swing.JList<>();
+        ListaMiembrosAsignados = new javax.swing.JList<>(listModel);
         jLabel2 = new javax.swing.JLabel();
         BtnCancelar = new javax.swing.JButton();
         BtnGuardar = new javax.swing.JButton();
@@ -89,6 +136,7 @@ public class FrmNuevaTarea extends javax.swing.JInternalFrame {
         TxtDescripcion.setBackground(new java.awt.Color(20, 29, 38));
         TxtDescripcion.setColumns(20);
         TxtDescripcion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TxtDescripcion.setForeground(new java.awt.Color(255, 255, 255));
         TxtDescripcion.setRows(5);
         jScrollPane1.setViewportView(TxtDescripcion);
 
@@ -99,6 +147,8 @@ public class FrmNuevaTarea extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(TablaMiembros);
 
         ListaMiembrosAsignados.setBackground(new java.awt.Color(20, 29, 38));
+        ListaMiembrosAsignados.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ListaMiembrosAsignados.setForeground(new java.awt.Color(255, 255, 255));
         jScrollPane3.setViewportView(ListaMiembrosAsignados);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -107,6 +157,7 @@ public class FrmNuevaTarea extends javax.swing.JInternalFrame {
 
         BtnCancelar.setBackground(new java.awt.Color(20, 29, 38));
         BtnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BtnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         BtnCancelar.setText("Cancelar");
         BtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +169,11 @@ public class FrmNuevaTarea extends javax.swing.JInternalFrame {
         BtnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnGuardar.setForeground(new java.awt.Color(0, 172, 238));
         BtnGuardar.setText("Guardar");
+        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -178,6 +234,18 @@ public class FrmNuevaTarea extends javax.swing.JInternalFrame {
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_BtnCancelarActionPerformed
+
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+        int miembroId = obtenerIdSeleccionado();
+        Tarea tarea = new Tarea();
+        EstadoTarea estados = new EstadoTarea();
+        Cola[] datosEstados = estados.listarEstadosPorProyecto(Integer.parseInt(this.idProyecto));
+        int ultimaTareaId = 0;
+        
+        if(true){
+            agregarTareaTablero(miembroId, tarea, ultimaTareaId, datosEstados);
+        }
+    }//GEN-LAST:event_BtnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

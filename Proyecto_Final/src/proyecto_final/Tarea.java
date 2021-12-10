@@ -57,7 +57,7 @@ public class Tarea {
             ps.setString(1, descripcion);
             ps.setInt(2, estadoTareaId);
             ps.setInt(3, proyectoId);
-            ps.executeQuery();
+            ps.executeUpdate();
         }catch(Exception e){
             System.out.println(e.getMessage());
         }finally{
@@ -265,6 +265,7 @@ public class Tarea {
         java.sql.Connection cn = null;
         ListaDC id = new ListaDC();
         ListaDC nombres = new ListaDC();
+        int indice = 0;
         
         try{
             cn = connection.getConnection();
@@ -281,7 +282,14 @@ public class Tarea {
             
             while(rs.next()){
                 id.agregarListaDC(rs.getInt("ID"));
+                id.getFinDC().setIndice(indice);
+                id.setLongitud(id.getLongitud() + 1);
+                
                 nombres.agregarListaDC(rs.getString("NOMBRES"));
+                nombres.getFinDC().setIndice(indice);
+                nombres.setLongitud(nombres.getLongitud() + 1);
+                
+                indice++;
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
