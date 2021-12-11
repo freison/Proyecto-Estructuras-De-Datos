@@ -208,7 +208,7 @@ public class Tarea {
         
         java.sql.Connection cn = null;
         ListaDC Id = new ListaDC();
-        ListaDC descripciones = new ListaDC();
+        ListaDC descripcion = new ListaDC();
         ListaDC estados = new ListaDC();
         int indice = 0;
         
@@ -228,16 +228,18 @@ public class Tarea {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
-                Id.agregarListaDC(rs.getInt("ID"));
-                Id.getFinDC().setIndice(indice);
+                Id.agregarListaDC(rs.getInt("ID"), indice);
+                // Id.getFinDC().setIndice(indice);
                 Id.setLongitud(Id.getLongitud() + 1);
                 
-                descripciones.agregarListaDC(rs.getShort("DESCRIPCION"));
-                descripciones.getFinDC().setIndice(indice);
-                descripciones.setLongitud(descripciones.getLongitud() + 1);
+                descripcion.agregarListaDC(rs.getString("DESCRIPCION"), indice);
+                // descripcion.getFinDC().setIndice(indice);
+                descripcion.setLongitud(descripcion.getLongitud() + 1);
+                // System.out.println(descripcion.getFinDC().getIndice());
+                System.out.println(rs.getString("DESCRIPCION"));
                 
-                estados.agregarListaDC(rs.getString("ESTADOTAREAID"));
-                estados.getFinDC().setIndice(indice);
+                estados.agregarListaDC(rs.getString("ESTADOTAREAID"), indice);
+                // estados.getFinDC().setIndice(indice);
                 estados.setLongitud(estados.getLongitud() + 1);
                 
                 indice++;
@@ -252,8 +254,12 @@ public class Tarea {
             }
         }
         
+        descripcion.mostrarListaDC();
+        Id.mostrarListaDC();
+        estados.mostrarListaDC();
+        
         lista[0] = Id;
-        lista[1] = descripciones;
+        lista[1] = descripcion;
         lista[2] = estados;
         
         return lista;
@@ -281,12 +287,12 @@ public class Tarea {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
-                id.agregarListaDC(rs.getInt("ID"));
+                id.agregarListaDC(rs.getInt("ID"), indice);
                 id.getFinDC().setIndice(indice);
                 id.setLongitud(id.getLongitud() + 1);
                 
-                nombres.agregarListaDC(rs.getString("NOMBRES"));
-                nombres.getFinDC().setIndice(indice);
+                nombres.agregarListaDC(rs.getString("NOMBRES"), indice);
+                // nombres.getFinDC().setIndice(indice);
                 nombres.setLongitud(nombres.getLongitud() + 1);
                 
                 indice++;

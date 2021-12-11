@@ -261,6 +261,7 @@ public class Proyecto {
             
             while(rs.next()){
                 nombres.Agregar(rs.getString("Nombres"), contador);
+                nombres.setLongitud(nombres.getLongitud()+1);
                 contador++;
             }
         }catch(Exception e){

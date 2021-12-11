@@ -22,4 +22,8 @@ public abstract class Dato {
     public DatoInt toDatoInt(){
         return (DatoInt)this;
     }
+    
+    public <T> DatoT toDatoT(){
+        return (DatoT)this;
+    }
 }
