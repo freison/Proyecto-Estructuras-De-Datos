@@ -6,7 +6,7 @@ public class ListaDC<T extends Estructura> extends Estructura {
     private NodoDC inicioDC;
     private NodoDC finDC;
     private NodoDC finx;
-    private T t;
+    // private T t;
     
     // CONSTRUCTOR.
     public ListaDC(){
@@ -39,13 +39,13 @@ public class ListaDC<T extends Estructura> extends Estructura {
         }
     }
 
-    public T getT() {
-        return t;
-    }
-
-    public void setT(T t) {
-        this.t = t;
-    }
+//    public T getT() {
+//        return t;
+//    }
+//
+//    public void setT(T t) {
+//        this.t = t;
+//    }
     
     public void agregarListaDC(String letra, int indice){
         DatoString dato = new DatoString();
@@ -127,22 +127,43 @@ public class ListaDC<T extends Estructura> extends Estructura {
         }
     }
     
-//    public void agregarListaDC(T t){
-//        DatoT<T> dato = new DatoT<>();
-//        dato.setT(t);
-//        NodoDC nuevo = new NodoDC();
-//        nuevo.setElemento(dato);
-//        
-//        if(isDCEmpty()) {
-//            inicioDC = nuevo;
-//            finDC = nuevo;
-//            finDC.setSiguiente(inicioDC);
-//            inicioDC.setAnterior(nuevo);
-//        }
-//        else if(dato.getT().getLongitud() < nuevo.getElemento().toDatoT().getT().getLongitud()){
-//            
-//        }
-//    }
+    public void agregarListaDC(T t, int indice){
+        DatoT<T> dato = new DatoT<>();
+        dato.setT(t);
+        NodoDC nuevo = new NodoDC();
+        nuevo.setElemento(dato);
+        nuevo.setIndice(indice);
+        
+        if(isDCEmpty()) {
+            inicioDC = nuevo;
+            finDC = nuevo;
+            finDC.setSiguiente(inicioDC);
+            inicioDC.setAnterior(nuevo);
+        }
+        else if(dato.getT().getLongitud() < inicioDC.getElemento().toDatoT().getT().getLongitud()){
+            nuevo.setSiguiente(inicioDC);
+            inicioDC = nuevo;
+            finDC.setSiguiente(inicioDC);
+            inicioDC.setAnterior(finDC);
+        }
+        else if(dato.getT().getLongitud() >= finDC.getElemento().toDatoT().getT().getLongitud()){
+            finDC.setSiguiente(nuevo);
+            finDC = finDC.getSiguiente();
+            finDC.setSiguiente(inicioDC);
+            inicioDC.setAnterior(finDC);
+        }
+        else{
+            NodoDC aux = inicioDC;
+            while(aux.getSiguiente().getElemento().toDatoT().getT().getLongitud() < 
+                    dato.getT().getLongitud()){
+                aux = aux.getSiguiente();
+            }
+            nuevo.setSiguiente(aux.getSiguiente());
+            nuevo.setAnterior(aux);
+            aux.setSiguiente(nuevo);
+            nuevo.getSiguiente().setAnterior(nuevo);
+        }
+    }
     
     public void mostrarListaDC(){
         String s = "";
@@ -178,5 +199,48 @@ public class ListaDC<T extends Estructura> extends Estructura {
         }
         
         return datoAuxiliar;
+    }
+    
+    public void eliminarEspecifico(int indice){
+        if(inicioDC.getIndice() == indice){
+            this.moverIndices(inicioDC.getSiguiente());
+            System.out.println(inicioDC.getElemento());
+            finDC.setSiguiente(inicioDC.getSiguiente());
+            inicioDC.getSiguiente().setAnterior(finDC);
+            inicioDC = inicioDC.getSiguiente();
+        }
+        else if(finDC.getIndice() == indice){
+            this.moverIndices(finDC.getSiguiente());
+            finDC.getAnterior().setSiguiente(inicioDC);
+            inicioDC.setAnterior(finDC.getSiguiente());
+            finDC = finDC.getAnterior();
+        }
+        else{
+            NodoDC aux = finDC;
+            if(aux.getSiguiente().getIndice() == indice){
+                this.moverIndices(aux.getSiguiente().getSiguiente());
+                aux.setSiguiente(aux.getSiguiente().getSiguiente());
+                aux.getSiguiente().getSiguiente().setAnterior(aux);
+                inicioDC = inicioDC.getSiguiente();
+            }
+            aux = aux.getSiguiente();
+            while(aux!=finDC){
+                if (aux.getSiguiente().getIndice() == indice) {
+                    this.moverIndices(aux.getSiguiente().getSiguiente());
+                    aux.setSiguiente(aux.getSiguiente().getSiguiente());
+                    aux.getSiguiente().getSiguiente().setAnterior(aux);
+                }
+                aux = aux.getSiguiente();
+            }
+        }
+    }
+    
+    public void moverIndices(NodoDC aux){
+        aux.setIndice(aux.getIndice()-1);
+        aux = aux.getSiguiente();
+        while(aux!=inicioDC){
+            aux.setIndice(aux.getIndice() - 1);
+            aux = aux.getSiguiente();
+        }
     }
 }

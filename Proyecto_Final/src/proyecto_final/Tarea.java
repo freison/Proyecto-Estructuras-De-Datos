@@ -235,8 +235,6 @@ public class Tarea {
                 descripcion.agregarListaDC(rs.getString("DESCRIPCION"), indice);
                 // descripcion.getFinDC().setIndice(indice);
                 descripcion.setLongitud(descripcion.getLongitud() + 1);
-                // System.out.println(descripcion.getFinDC().getIndice());
-                System.out.println(rs.getString("DESCRIPCION"));
                 
                 estados.agregarListaDC(rs.getString("ESTADOTAREAID"), indice);
                 // estados.getFinDC().setIndice(indice);
@@ -253,10 +251,6 @@ public class Tarea {
                 System.out.println(e.getMessage());
             }
         }
-        
-        descripcion.mostrarListaDC();
-        Id.mostrarListaDC();
-        estados.mostrarListaDC();
         
         lista[0] = Id;
         lista[1] = descripcion;
