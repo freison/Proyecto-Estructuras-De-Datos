@@ -77,9 +77,9 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
                     if(i == 1){
                         String elemento = tareasProyecto[1].obtenerEspecifico(j).toDatoString().getCadena();
                         // listPorHacerModel.addElement(elemento);
-                        listPorHacerModel.add(j, elemento);
-                        porHacerDescripcionesTEMP.agregarListaDC(elemento, j);
-                        porHacerDescripcionesTEMP.setLongitud(porHacerDescripcionesTEMP.getLongitud()+1);
+                        listPorHacerModel.addElement(elemento);
+                        porHacerDescripcionesTEMP.agregarListaDC(elemento);
+                        porHacerDescripcionesTEMP.setLongitud(listPorHacerModel.getSize());
                         indice++;
                     }
                     else if(i == 0){
@@ -94,11 +94,13 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
                     if(i == 1){
                         String elemento = tareasProyecto[1].obtenerEspecifico(j).toDatoString().getCadena();
                         listEnProcesoModel.addElement(elemento);
-                        enProcesoDescripcionesTEMP.agregarListaDC(elemento, -1);
+                        enProcesoDescripcionesTEMP.agregarListaDC(elemento, j);
+                        enProcesoDescripcionesTEMP.setLongitud(enProcesoDescripcionesTEMP.getLongitud() + 1);
                     }
                     else if(i == 0){
                         int elemento = tareasProyecto[0].obtenerEspecifico(j).toDatoInt().getNumero();
-                        enProcesoIdTEMP.agregarListaDC(elemento, -1);
+                        enProcesoIdTEMP.agregarListaDC(elemento, j);
+                        enProcesoIdTEMP.setLongitud(enProcesoIdTEMP.getLongitud() + 1);
                     }
                     indice++;
                 }
@@ -125,8 +127,8 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
         this.finalizado.agregarListaDC(finalizadoIdTEMP, 0);
         this.finalizado.agregarListaDC(finalizadoDescripcionesTEMP, 1);
         
-        ((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT()
-                    .getT()).mostrarListaDC();
+        //((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT()
+          //          .getT()).mostrarListaDC();
         ((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT()
                     .getT()).mostrarListaDC();
         ((ListaDC)this.finalizado.obtenerEspecifico(1).toDatoT()
@@ -148,6 +150,7 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         ListaMiembros = new javax.swing.JList<>(listModel);
         BtnPorHacer_EnProceso = new javax.swing.JButton();
+        BtnEnProceso_PorHacer = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(20, 29, 38));
         setClosable(true);
@@ -196,11 +199,21 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
 
         BtnPorHacer_EnProceso.setBackground(new java.awt.Color(20, 29, 38));
         BtnPorHacer_EnProceso.setForeground(new java.awt.Color(20, 29, 38));
-        BtnPorHacer_EnProceso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/right-arrow.png"))); // NOI18N
+        BtnPorHacer_EnProceso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/right-arrow.png"))); // NOI18N
         BtnPorHacer_EnProceso.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BtnPorHacer_EnProceso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnPorHacer_EnProcesoActionPerformed(evt);
+            }
+        });
+
+        BtnEnProceso_PorHacer.setBackground(new java.awt.Color(20, 29, 38));
+        BtnEnProceso_PorHacer.setForeground(new java.awt.Color(20, 29, 38));
+        BtnEnProceso_PorHacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/left-arrow.png"))); // NOI18N
+        BtnEnProceso_PorHacer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BtnEnProceso_PorHacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEnProceso_PorHacerActionPerformed(evt);
             }
         });
 
@@ -218,9 +231,12 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BtnPorHacer_EnProceso))
                         .addGap(46, 46, 46)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(45, 45, 45)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(BtnEnProceso_PorHacer))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -239,8 +255,10 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(BtnPorHacer_EnProceso)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BtnPorHacer_EnProceso)
+                    .addComponent(BtnEnProceso_PorHacer))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -258,9 +276,18 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
         int index = this.ListaToDo.getSelectedIndex();
         if(index>-1){
             System.out.println(index);
-            int tareaId = (((ListaDC)this.porHacer.obtenerEspecifico(0).toDatoT().getT())
-                    .obtenerEspecifico(index).toDatoInt().getNumero());
-            System.out.println(tareaId);
+            
+//            int indice = (((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT()))
+//                    .obtenerIndiceEspecifico(this.ListaEnProceso.getSelectedValue());
+//            
+//            int tareaId = (((ListaDC)this.enProceso.obtenerEspecifico(0).toDatoT().getT()))
+//                    .obtenerIdEspecifico(indice);
+            
+            int indice = (((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT().getT()))
+                    .obtenerIndiceEspecifico(this.ListaToDo.getSelectedValue());
+            int tareaId = (((ListaDC)this.porHacer.obtenerEspecifico(0).toDatoT().getT()))
+                    .obtenerIdEspecifico(indice);
+            
 //            String elemento = ((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT()
 //                    .getT()).obtenerEspecifico(index).toDatoString().getCadena();
             
@@ -270,16 +297,39 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
             this.listEnProcesoModel.addElement(elemento);
             // this.listPorHacerModel.removeElement(listPorHacerModel.get(index));
             this.listPorHacerModel.remove(index);
-            ((ListaDC)(this.enProceso.obtenerEspecifico(0).toDatoT().getT())).agregarListaDC(tareaId, listEnProcesoModel.getSize()+1);
-            (((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT())).agregarListaDC(elemento, listEnProcesoModel.getSize()+1);
+            ((ListaDC)(this.enProceso.obtenerEspecifico(0).toDatoT().getT())).agregarListaDC(tareaId);
+            ((ListaDC)(this.enProceso.obtenerEspecifico(0).toDatoT().getT())).setLongitud(listEnProcesoModel.getSize());
+            (((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT())).agregarListaDC(elemento);
+            (((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT())).setLongitud(listEnProcesoModel.getSize());
             (((ListaDC)this.porHacer.obtenerEspecifico(0).toDatoT().getT())).eliminarEspecifico(index);
+            (((ListaDC)this.porHacer.obtenerEspecifico(0).toDatoT().getT())).setLongitud(listPorHacerModel.getSize());
             (((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT().getT())).eliminarEspecifico(index);
+            (((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT().getT())).setLongitud(listPorHacerModel.getSize());
+            
+            tarea.modificarEstado(tareaId, datosEstados[0].obtenerEspecifico(1).toDatoInt().getNumero());
+        }
+        else{
+            javax.swing.JOptionPane.showMessageDialog(null, "Debe de seleccionar una tarea de la lista");
         }
     }//GEN-LAST:event_BtnPorHacer_EnProcesoActionPerformed
+
+    private void BtnEnProceso_PorHacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEnProceso_PorHacerActionPerformed
+        int index = this.ListaEnProceso.getSelectedIndex();
+        if(index>-1){
+            System.out.println(index);
+            int indice = (((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT()))
+                    .obtenerIndiceEspecifico(this.ListaEnProceso.getSelectedValue());
+            
+            int tareaId = (((ListaDC)this.enProceso.obtenerEspecifico(0).toDatoT().getT()))
+                    .obtenerIdEspecifico(indice);
+            System.out.println(tareaId);
+        }
+    }//GEN-LAST:event_BtnEnProceso_PorHacerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAgregarTarea;
+    private javax.swing.JButton BtnEnProceso_PorHacer;
     private javax.swing.JButton BtnPorHacer_EnProceso;
     private javax.swing.JLabel Lb_Titulo;
     private javax.swing.JList<String> ListaEnProceso;

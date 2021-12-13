@@ -340,4 +340,27 @@ public class Tarea {
         
         return detalleId;
     }
+    
+    public void modificarEstado(int tareaId, int nuevoEstado){
+        java.sql.Connection cn = null;
+        
+        try{
+            cn = connection.getConnection();
+            
+            String sqlQuery = "update Tareas set ESTADOTAREAID = ? where Id = ?";
+            
+            PreparedStatement ps = cn.prepareStatement(sqlQuery);
+            ps.setInt(1, nuevoEstado);
+            ps.setInt(2, tareaId);
+            ps.executeUpdate();
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                cn.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 } // FIN DE CLASE TAREA.

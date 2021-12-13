@@ -60,11 +60,18 @@ public class ListaDC<T extends Estructura> extends Estructura {
             finDC = nuevo;
             finDC.setSiguiente(inicioDC);
             inicioDC.setAnterior(nuevo);
+            //
+            finDC.setAnterior(inicioDC);
+            inicioDC.setSiguiente(finDC);
+            //
         }
         else if(dato.getCadena().compareToIgnoreCase(
                 inicioDC.getElemento().toDatoString().getCadena())<0
                 ){
             nuevo.setSiguiente(inicioDC);
+            //
+            inicioDC.setAnterior(nuevo);
+            //
             inicioDC = nuevo;
             finDC.setSiguiente(inicioDC);
             inicioDC.setAnterior(finDC);
@@ -73,6 +80,62 @@ public class ListaDC<T extends Estructura> extends Estructura {
                 finDC.getElemento().toDatoString().getCadena())>=0
                 ){
             finDC.setSiguiente(nuevo);
+            //
+            nuevo.setAnterior(finDC);
+            //
+            finDC = finDC.getSiguiente();
+            finDC.setSiguiente(inicioDC);
+            inicioDC.setAnterior(finDC);
+        }
+        else{
+            NodoDC aux = inicioDC;
+            while(aux.getSiguiente().getElemento().toDatoString().getCadena()
+                    .compareToIgnoreCase(dato.getCadena())<0){
+                aux = aux.getSiguiente();
+            }
+            nuevo.setSiguiente(aux.getSiguiente());
+            nuevo.setAnterior(aux);
+            aux.setSiguiente(nuevo);
+            nuevo.getSiguiente().setAnterior(nuevo);
+        }
+    }
+    
+    public void agregarListaDC(String letra){
+        DatoString dato = new DatoString();
+        dato.setCadena(letra);
+        NodoDC nuevo = new NodoDC();
+        nuevo.setElemento(dato);
+        
+        nuevo.setIndice(this.getLongitud());
+        
+        if(isDCEmpty()){
+            inicioDC = nuevo;
+            finDC = nuevo;
+            finDC.setSiguiente(inicioDC);
+            inicioDC.setAnterior(nuevo);
+            //
+            finDC.setAnterior(inicioDC);
+            inicioDC.setSiguiente(finDC);
+            //
+        }
+        else if(dato.getCadena().compareToIgnoreCase(
+                inicioDC.getElemento().toDatoString().getCadena())<0
+                ){
+            nuevo.setSiguiente(inicioDC);
+            //
+            inicioDC.setAnterior(nuevo);
+            //
+            inicioDC = nuevo;
+            finDC.setSiguiente(inicioDC);
+            inicioDC.setAnterior(finDC);
+        }
+        else if(dato.getCadena().compareToIgnoreCase(
+                finDC.getElemento().toDatoString().getCadena())>=0
+                ){
+            finDC.setSiguiente(nuevo);
+            //
+            nuevo.setAnterior(finDC);
+            //
             finDC = finDC.getSiguiente();
             finDC.setSiguiente(inicioDC);
             inicioDC.setAnterior(finDC);
@@ -102,15 +165,73 @@ public class ListaDC<T extends Estructura> extends Estructura {
             finDC = nuevo;
             finDC.setSiguiente(inicioDC);
             inicioDC.setAnterior(nuevo);
+            //
+            finDC.setAnterior(inicioDC);
+            inicioDC.setSiguiente(finDC);
+            //
         }
         else if(dato.toDatoInt().getNumero() < inicioDC.getElemento().toDatoInt().getNumero()){
             nuevo.setSiguiente(inicioDC);
+            //
+            inicioDC.setAnterior(nuevo);
+            //
             inicioDC = nuevo;
             finDC.setSiguiente(inicioDC);
             inicioDC.setAnterior(finDC);
         }
         else if(dato.toDatoInt().getNumero() >= finDC.getElemento().toDatoInt().getNumero()){
             finDC.setSiguiente(nuevo);
+            //
+            nuevo.setAnterior(finDC);
+            //
+            finDC = finDC.getSiguiente();
+            finDC.setSiguiente(inicioDC);
+            inicioDC.setAnterior(finDC);
+        }
+        else{
+            NodoDC aux = inicioDC;
+            while(aux.getSiguiente().getElemento().toDatoInt().getNumero() < dato.getNumero()){
+                aux = aux.getSiguiente();
+            }
+            nuevo.setSiguiente(aux.getSiguiente());
+            nuevo.setAnterior(aux);
+            aux.setSiguiente(nuevo);
+            nuevo.getSiguiente().setAnterior(nuevo);
+        }
+    }
+    
+    public void agregarListaDC(int numero){
+        DatoInt dato = new DatoInt();
+        dato.setNumero(numero);
+        NodoDC nuevo = new NodoDC();
+        nuevo.setElemento(dato);
+        nuevo.setIndice(this.getLongitud()+1);
+        
+        if(isDCEmpty()) {
+            inicioDC = nuevo;
+            finDC = nuevo;
+            finDC.setSiguiente(inicioDC);
+            inicioDC.setAnterior(nuevo);
+            //
+            finDC.setAnterior(inicioDC);
+            inicioDC.setSiguiente(finDC);
+            //
+        }
+        else if(dato.toDatoInt().getNumero() < inicioDC.getElemento().toDatoInt().getNumero()){
+            nuevo.setSiguiente(inicioDC);
+            //
+            inicioDC.setAnterior(nuevo);
+            //
+            inicioDC = nuevo;
+            finDC.setSiguiente(inicioDC);
+            inicioDC.setAnterior(finDC);
+            
+        }
+        else if(dato.toDatoInt().getNumero() >= finDC.getElemento().toDatoInt().getNumero()){
+            finDC.setSiguiente(nuevo);
+            //
+            nuevo.setAnterior(finDC);
+            //
             finDC = finDC.getSiguiente();
             finDC.setSiguiente(inicioDC);
             inicioDC.setAnterior(finDC);
@@ -139,15 +260,25 @@ public class ListaDC<T extends Estructura> extends Estructura {
             finDC = nuevo;
             finDC.setSiguiente(inicioDC);
             inicioDC.setAnterior(nuevo);
+            //
+            finDC.setAnterior(inicioDC);
+            inicioDC.setSiguiente(finDC);
+            //
         }
         else if(dato.getT().getLongitud() < inicioDC.getElemento().toDatoT().getT().getLongitud()){
             nuevo.setSiguiente(inicioDC);
+            //
+            inicioDC.setAnterior(nuevo);
+            //
             inicioDC = nuevo;
             finDC.setSiguiente(inicioDC);
             inicioDC.setAnterior(finDC);
         }
         else if(dato.getT().getLongitud() >= finDC.getElemento().toDatoT().getT().getLongitud()){
             finDC.setSiguiente(nuevo);
+            //
+            nuevo.setAnterior(finDC);
+            //
             finDC = finDC.getSiguiente();
             finDC.setSiguiente(inicioDC);
             inicioDC.setAnterior(finDC);
@@ -192,6 +323,50 @@ public class ListaDC<T extends Estructura> extends Estructura {
             while(aux!=inicioDC && !flag){
                 if (aux.getIndice() == indice) {
                     datoAuxiliar = aux.getElemento();
+                    flag = true;
+                }
+                aux = aux.getSiguiente();
+            }
+        }
+        
+        return datoAuxiliar;
+    }
+    
+    public int obtenerIndiceEspecifico(String cadena){
+        int datoAuxiliar = 0;
+        boolean flag = false;
+        if(!isDCEmpty()){
+            NodoDC aux = inicioDC;
+            if(aux.getElemento().toDatoString().getCadena().compareToIgnoreCase(cadena) == 0){
+                datoAuxiliar = aux.getIndice();
+                flag = true;
+            }
+            aux = aux.getSiguiente();
+            while(aux!=inicioDC && !flag){
+                if (aux.getElemento().toDatoString().getCadena().compareToIgnoreCase(cadena) == 0) {
+                    datoAuxiliar = aux.getIndice();
+                    flag = true;
+                }
+                aux = aux.getSiguiente();
+            }
+        }
+        
+        return datoAuxiliar;
+    }
+    
+    public int obtenerIdEspecifico(int indice){
+        int datoAuxiliar = 0;
+        boolean flag = false;
+        if(!isDCEmpty()){
+            NodoDC aux = inicioDC;
+            if(aux.getIndice() == indice){
+                datoAuxiliar = aux.getElemento().toDatoInt().getNumero();
+                flag = true;
+            }
+            aux = aux.getSiguiente();
+            while(aux!=inicioDC && !flag){
+                if (aux.getIndice() == indice) {
+                    datoAuxiliar = aux.getElemento().toDatoInt().getNumero();
                     flag = true;
                 }
                 aux = aux.getSiguiente();
