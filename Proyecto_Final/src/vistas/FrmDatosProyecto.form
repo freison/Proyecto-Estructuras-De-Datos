@@ -40,14 +40,16 @@
                           <Component id="BtnPorHacer_EnProceso" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jScrollPane2" min="-2" pref="250" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" min="-2" pref="250" max="-2" attributes="0"/>
+                              <Component id="BtnEnProceso_PorHacer" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="BtnEnProceso_Finalizado" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="BtnEnProceso_PorHacer" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="250" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="jScrollPane3" min="-2" pref="250" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="151" max="32767" attributes="0"/>
@@ -74,6 +76,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="BtnPorHacer_EnProceso" min="-2" max="-2" attributes="0"/>
                   <Component id="BtnEnProceso_PorHacer" min="-2" max="-2" attributes="0"/>
+                  <Component id="BtnEnProceso_Finalizado" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -262,6 +265,27 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnEnProceso_PorHacerActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="BtnEnProceso_Finalizado">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="26" green="1d" red="14" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="26" green="1d" red="14" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Images/right-arrow.png"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+            <BevelBorder/>
+          </Border>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnEnProceso_FinalizadoActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

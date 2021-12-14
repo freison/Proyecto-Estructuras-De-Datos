@@ -110,11 +110,13 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
                     if(i == 1){
                         String elemento = tareasProyecto[1].obtenerEspecifico(j).toDatoString().getCadena();
                         listFinalizadoModel.addElement(elemento);
-                        finalizadoDescripcionesTEMP.agregarListaDC(elemento, -1);
+                        finalizadoDescripcionesTEMP.agregarListaDC(elemento, j);
+                        finalizadoDescripcionesTEMP.setLongitud(listFinalizadoModel.getSize());
                     }
                     else if(i == 0){
                         int elemento = tareasProyecto[0].obtenerEspecifico(j).toDatoInt().getNumero();
-                        finalizadoIdTEMP.agregarListaDC(elemento, -1);
+                        finalizadoIdTEMP.agregarListaDC(elemento, j);
+                        finalizadoIdTEMP.setLongitud(listFinalizadoModel.getSize());
                     }
                     indice++;
                 }
@@ -152,6 +154,7 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
         ListaMiembros = new javax.swing.JList<>(listModel);
         BtnPorHacer_EnProceso = new javax.swing.JButton();
         BtnEnProceso_PorHacer = new javax.swing.JButton();
+        BtnEnProceso_Finalizado = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(20, 29, 38));
         setClosable(true);
@@ -218,6 +221,16 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnEnProceso_Finalizado.setBackground(new java.awt.Color(20, 29, 38));
+        BtnEnProceso_Finalizado.setForeground(new java.awt.Color(20, 29, 38));
+        BtnEnProceso_Finalizado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/right-arrow.png"))); // NOI18N
+        BtnEnProceso_Finalizado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BtnEnProceso_Finalizado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEnProceso_FinalizadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -232,12 +245,14 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BtnPorHacer_EnProceso))
                         .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(BtnEnProceso_PorHacer))))
+                                .addComponent(BtnEnProceso_PorHacer)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BtnEnProceso_Finalizado))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -258,7 +273,8 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BtnPorHacer_EnProceso)
-                    .addComponent(BtnEnProceso_PorHacer))
+                    .addComponent(BtnEnProceso_PorHacer)
+                    .addComponent(BtnEnProceso_Finalizado))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -335,9 +351,39 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BtnEnProceso_PorHacerActionPerformed
 
+    private void BtnEnProceso_FinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEnProceso_FinalizadoActionPerformed
+        int index = ListaEnProceso.getSelectedIndex();
+        if(index > -1){
+            int indice = (((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT()))
+                    .obtenerIndiceEspecifico(this.ListaEnProceso.getSelectedValue());
+            
+            int tareaId = (((ListaDC)this.enProceso.obtenerEspecifico(0).toDatoT().getT()))
+                    .obtenerIdEspecifico(indice);
+            
+            System.out.println("Indice: " + indice + "\n" + "Id: " + tareaId);
+            
+            String elemento = ListaEnProceso.getSelectedValue();
+            Tarea tarea = new Tarea();
+            this.listFinalizadoModel.addElement(elemento);
+            this.listEnProcesoModel.removeElement(elemento);
+            
+            ((ListaDC)this.finalizado.obtenerEspecifico(0).toDatoT().getT()).agregarListaDC(tareaId, listFinalizadoModel.getSize());
+            ((ListaDC)this.finalizado.obtenerEspecifico(0).toDatoT().getT()).setLongitud(listFinalizadoModel.getSize());
+            ((ListaDC)this.finalizado.obtenerEspecifico(1).toDatoT().getT()).agregarListaDC(elemento, listFinalizadoModel.getSize());
+            ((ListaDC)this.finalizado.obtenerEspecifico(1).toDatoT().getT()).setLongitud(listFinalizadoModel.getSize());
+            ((ListaDC)this.enProceso.obtenerEspecifico(0).toDatoT().getT()).eliminarEspecifico(indice);
+            ((ListaDC)this.enProceso.obtenerEspecifico(0).toDatoT().getT()).setLongitud(listEnProcesoModel.getSize());
+            ((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT()).eliminarEspecifico(indice);
+            ((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT()).setLongitud(listEnProcesoModel.getSize());
+            
+            tarea.modificarEstado(tareaId, datosEstados[0].obtenerEspecifico(2).toDatoInt().getNumero());
+        }
+    }//GEN-LAST:event_BtnEnProceso_FinalizadoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAgregarTarea;
+    private javax.swing.JButton BtnEnProceso_Finalizado;
     private javax.swing.JButton BtnEnProceso_PorHacer;
     private javax.swing.JButton BtnPorHacer_EnProceso;
     private javax.swing.JLabel Lb_Titulo;
