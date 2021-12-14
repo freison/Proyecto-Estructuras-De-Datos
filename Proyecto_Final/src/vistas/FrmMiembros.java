@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import proyecto_final.Administrador;
 import Estructuras.Cola;
 import javax.swing.table.DefaultTableModel;
+import proyecto_final.Proyecto;
 
 public class FrmMiembros extends javax.swing.JInternalFrame {
     
@@ -13,10 +14,19 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
     private static final String nombresDeColumna[] = {
         "Id", "Nombres", "Apellidos", "Usuario", "Cedula", "Rol"
     };
+    private int proyectoId = 0;
 
     public FrmMiembros() {
         llenarTabla();
         initComponents();
+        this.BtnAgregarAProyecto.setVisible(false);
+    }
+    
+    public FrmMiembros(int proyectoId) {
+        llenarTabla();
+        initComponents();
+        this.BtnAgregarAProyecto.setVisible(true);
+        this.proyectoId = proyectoId;
     }
     
     private void llenarTabla(){
@@ -59,6 +69,7 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
         BtnAgregarMiembro = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         GridMiembros = new javax.swing.JTable(modelo);
+        BtnAgregarAProyecto = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(20, 29, 38));
         setClosable(true);
@@ -88,7 +99,7 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
         Lb_Titulo.setForeground(new java.awt.Color(255, 255, 255));
         Lb_Titulo.setText("Miembros");
 
-        BtnAgregarMiembro.setBackground(new java.awt.Color(102, 102, 102));
+        BtnAgregarMiembro.setBackground(new java.awt.Color(20, 29, 38));
         BtnAgregarMiembro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnAgregarMiembro.setForeground(new java.awt.Color(255, 255, 255));
         BtnAgregarMiembro.setText("Agregar");
@@ -102,6 +113,16 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
         GridMiembros.setModel(modelo);
         jScrollPane1.setViewportView(GridMiembros);
 
+        BtnAgregarAProyecto.setBackground(new java.awt.Color(20, 29, 38));
+        BtnAgregarAProyecto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BtnAgregarAProyecto.setForeground(new java.awt.Color(255, 255, 255));
+        BtnAgregarAProyecto.setText("Agregar a Proyecto");
+        BtnAgregarAProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarAProyectoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,7 +135,9 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BtnAgregarMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BtnAgregarMiembro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnAgregarAProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -124,7 +147,10 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
                 .addComponent(Lb_Titulo)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BtnAgregarMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(BtnAgregarMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BtnAgregarAProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -144,8 +170,31 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_BtnAgregarMiembroActionPerformed
 
+    private void BtnAgregarAProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarAProyectoActionPerformed
+        int miembroId = 0;
+        
+        try{
+            miembroId = Integer.parseInt(GridMiembros.getValueAt(GridMiembros.getSelectedRow(), 0).toString());
+        }catch(IndexOutOfBoundsException | NullPointerException e){
+            try{
+                miembroId = Integer.parseInt(GridMiembros.getModel().getValueAt(0, 0).toString());
+            }catch(NullPointerException ex){
+                System.out.println(ex.getMessage());
+            }
+        }finally{
+            Proyecto proyecto = new Proyecto();
+            if(!proyecto.validarParticipacion(miembroId, this.proyectoId)){
+                proyecto.agregarDetalleParticipacion(miembroId, proyectoId);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Miembro seleccionado\n ya pertenece a este proyecto");
+            }
+        }
+    }//GEN-LAST:event_BtnAgregarAProyectoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnAgregarAProyecto;
     private javax.swing.JButton BtnAgregarMiembro;
     private javax.swing.JTable GridMiembros;
     private javax.swing.JLabel Lb_Titulo;

@@ -156,6 +156,7 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
         BtnEnProceso_PorHacer = new javax.swing.JButton();
         BtnEnProceso_Finalizado = new javax.swing.JButton();
         BtnFinalizado_EnProceso = new javax.swing.JButton();
+        BtnAgregarMiembro = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(20, 29, 38));
         setClosable(true);
@@ -242,6 +243,16 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
             }
         });
 
+        BtnAgregarMiembro.setBackground(new java.awt.Color(20, 29, 38));
+        BtnAgregarMiembro.setForeground(new java.awt.Color(255, 255, 255));
+        BtnAgregarMiembro.setText("Agregar Miembro");
+        BtnAgregarMiembro.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BtnAgregarMiembro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarMiembroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -267,7 +278,9 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BtnFinalizado_EnProceso))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnAgregarMiembro))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -288,7 +301,8 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
                     .addComponent(BtnPorHacer_EnProceso)
                     .addComponent(BtnEnProceso_PorHacer)
                     .addComponent(BtnEnProceso_Finalizado)
-                    .addComponent(BtnFinalizado_EnProceso))
+                    .addComponent(BtnFinalizado_EnProceso)
+                    .addComponent(BtnAgregarMiembro))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -423,8 +437,16 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BtnFinalizado_EnProcesoActionPerformed
 
+    private void BtnAgregarMiembroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarMiembroActionPerformed
+        FrmMiembros miembros = new FrmMiembros(idProyecto);
+        miembros.setVisible(true);
+        FrmHome.Desktop_Main.add(miembros);
+        this.dispose();
+    }//GEN-LAST:event_BtnAgregarMiembroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnAgregarMiembro;
     private javax.swing.JButton BtnAgregarTarea;
     private javax.swing.JButton BtnEnProceso_Finalizado;
     private javax.swing.JButton BtnEnProceso_PorHacer;

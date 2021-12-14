@@ -56,7 +56,10 @@
                   </Group>
               </Group>
               <EmptySpace pref="151" max="32767" attributes="0"/>
-              <Component id="jScrollPane4" min="-2" pref="186" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane4" min="-2" pref="186" max="-2" attributes="0"/>
+                  <Component id="BtnAgregarMiembro" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -81,6 +84,7 @@
                   <Component id="BtnEnProceso_PorHacer" min="-2" max="-2" attributes="0"/>
                   <Component id="BtnEnProceso_Finalizado" min="-2" max="-2" attributes="0"/>
                   <Component id="BtnFinalizado_EnProceso" min="-2" max="-2" attributes="0"/>
+                  <Component id="BtnAgregarMiembro" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -311,6 +315,25 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnFinalizado_EnProcesoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="BtnAgregarMiembro">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="26" green="1d" red="14" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Agregar Miembro"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+            <BevelBorder/>
+          </Border>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnAgregarMiembroActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
