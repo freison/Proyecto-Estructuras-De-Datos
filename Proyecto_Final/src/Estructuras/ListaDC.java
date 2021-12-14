@@ -300,10 +300,10 @@ public class ListaDC<T extends Estructura> extends Estructura {
         String s = "";
         if(!isDCEmpty()){
             NodoDC aux = inicioDC;
-            s += aux.getIndice() + " <=> ";
+            s += aux.getElemento().toDatoString().getCadena() + " " + aux.getIndice() +  "<=> ";
             aux = aux.getSiguiente();
             while(aux != inicioDC){
-                s += aux.getIndice() + " <=> ";
+                s += aux.getElemento().toDatoString().getCadena() + " " +aux.getIndice() + " <=> ";
                 aux = aux.getSiguiente();
             }
             javax.swing.JOptionPane.showMessageDialog(null, s);
@@ -337,13 +337,13 @@ public class ListaDC<T extends Estructura> extends Estructura {
         boolean flag = false;
         if(!isDCEmpty()){
             NodoDC aux = inicioDC;
-            if(aux.getElemento().toDatoString().getCadena().compareToIgnoreCase(cadena) == 0){
+            if(aux.getElemento().toDatoString().getCadena().compareTo(cadena) == 0){
                 datoAuxiliar = aux.getIndice();
                 flag = true;
             }
             aux = aux.getSiguiente();
             while(aux!=inicioDC && !flag){
-                if (aux.getElemento().toDatoString().getCadena().compareToIgnoreCase(cadena) == 0) {
+                if (aux.getElemento().toDatoString().getCadena().compareTo(cadena) == 0) {
                     datoAuxiliar = aux.getIndice();
                     flag = true;
                 }
@@ -392,18 +392,21 @@ public class ListaDC<T extends Estructura> extends Estructura {
         }
         else{
             NodoDC aux = finDC;
+            boolean flag = false;
             if(aux.getSiguiente().getIndice() == indice){
                 this.moverIndices(aux.getSiguiente().getSiguiente());
                 aux.setSiguiente(aux.getSiguiente().getSiguiente());
                 aux.getSiguiente().getSiguiente().setAnterior(aux);
                 inicioDC = inicioDC.getSiguiente();
+                flag = true;
             }
             aux = aux.getSiguiente();
-            while(aux!=finDC){
+            while(aux!=finDC && !flag){
                 if (aux.getSiguiente().getIndice() == indice) {
                     this.moverIndices(aux.getSiguiente().getSiguiente());
                     aux.setSiguiente(aux.getSiguiente().getSiguiente());
                     aux.getSiguiente().getSiguiente().setAnterior(aux);
+                    flag = true;
                 }
                 aux = aux.getSiguiente();
             }
@@ -411,10 +414,10 @@ public class ListaDC<T extends Estructura> extends Estructura {
     }
     
     public void moverIndices(NodoDC aux){
-        aux.setIndice(aux.getIndice()-1);
+        aux.setIndice(aux.getAnterior().getIndice());
         aux = aux.getSiguiente();
         while(aux!=inicioDC){
-            aux.setIndice(aux.getIndice() - 1);
+            aux.setIndice(aux.getAnterior().getIndice());
             aux = aux.getSiguiente();
         }
     }

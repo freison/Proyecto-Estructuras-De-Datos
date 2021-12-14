@@ -19,6 +19,7 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
     private ListaDC<ListaDC> porHacer = new ListaDC<>();
     private ListaDC<ListaDC> enProceso = new ListaDC<>();
     private ListaDC<ListaDC> finalizado = new ListaDC<>();
+    
     private int idProyecto = 0;
     private boolean owener = false;
     
@@ -78,14 +79,14 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
                         String elemento = tareasProyecto[1].obtenerEspecifico(j).toDatoString().getCadena();
                         // listPorHacerModel.addElement(elemento);
                         listPorHacerModel.addElement(elemento);
-                        porHacerDescripcionesTEMP.agregarListaDC(elemento);
+                        porHacerDescripcionesTEMP.agregarListaDC(elemento, j);
                         porHacerDescripcionesTEMP.setLongitud(listPorHacerModel.getSize());
                         indice++;
                     }
                     else if(i == 0){
                         int elemento = tareasProyecto[0].obtenerEspecifico(j).toDatoInt().getNumero();
-                        porHacerIdTEMP.agregarListaDC(elemento, indice);
-                        porHacerIdTEMP.setLongitud(porHacerIdTEMP.getLongitud() + 1);
+                        porHacerIdTEMP.agregarListaDC(elemento, j);
+                        porHacerIdTEMP.setLongitud(listPorHacerModel.getSize());
                         indice++;
                     }
                 }
@@ -95,12 +96,12 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
                         String elemento = tareasProyecto[1].obtenerEspecifico(j).toDatoString().getCadena();
                         listEnProcesoModel.addElement(elemento);
                         enProcesoDescripcionesTEMP.agregarListaDC(elemento, j);
-                        enProcesoDescripcionesTEMP.setLongitud(enProcesoDescripcionesTEMP.getLongitud() + 1);
+                        enProcesoDescripcionesTEMP.setLongitud(listEnProcesoModel.getSize());
                     }
                     else if(i == 0){
                         int elemento = tareasProyecto[0].obtenerEspecifico(j).toDatoInt().getNumero();
                         enProcesoIdTEMP.agregarListaDC(elemento, j);
-                        enProcesoIdTEMP.setLongitud(enProcesoIdTEMP.getLongitud() + 1);
+                        enProcesoIdTEMP.setLongitud(listEnProcesoModel.getSize());
                     }
                     indice++;
                 }
@@ -167,7 +168,7 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
 
         ListaEnProceso.setBackground(new java.awt.Color(20, 29, 38));
         ListaEnProceso.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ListaEnProceso.setForeground(new java.awt.Color(153, 153, 0));
+        ListaEnProceso.setForeground(new java.awt.Color(204, 204, 0));
         ListaEnProceso.setModel(listEnProcesoModel);
         jScrollPane2.setViewportView(ListaEnProceso);
 
@@ -272,38 +273,29 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnAgregarTareaActionPerformed
 
     private void BtnPorHacer_EnProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPorHacer_EnProcesoActionPerformed
-   
         int index = this.ListaToDo.getSelectedIndex();
         if(index>-1){
             System.out.println(index);
-            
-//            int indice = (((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT()))
-//                    .obtenerIndiceEspecifico(this.ListaEnProceso.getSelectedValue());
-//            
-//            int tareaId = (((ListaDC)this.enProceso.obtenerEspecifico(0).toDatoT().getT()))
-//                    .obtenerIdEspecifico(indice);
             
             int indice = (((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT().getT()))
                     .obtenerIndiceEspecifico(this.ListaToDo.getSelectedValue());
             int tareaId = (((ListaDC)this.porHacer.obtenerEspecifico(0).toDatoT().getT()))
                     .obtenerIdEspecifico(indice);
             
-//            String elemento = ((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT()
-//                    .getT()).obtenerEspecifico(index).toDatoString().getCadena();
+            System.out.println("Indice: " + indice + "\n" + "Id: " + tareaId);
             
             String elemento = ListaToDo.getSelectedValue();
             Tarea tarea = new Tarea();
-            
             this.listEnProcesoModel.addElement(elemento);
-            // this.listPorHacerModel.removeElement(listPorHacerModel.get(index));
-            this.listPorHacerModel.remove(index);
-            ((ListaDC)(this.enProceso.obtenerEspecifico(0).toDatoT().getT())).agregarListaDC(tareaId);
+            this.listPorHacerModel.removeElement(elemento);
+            
+            ((ListaDC)(this.enProceso.obtenerEspecifico(0).toDatoT().getT())).agregarListaDC(tareaId, listEnProcesoModel.getSize());
             ((ListaDC)(this.enProceso.obtenerEspecifico(0).toDatoT().getT())).setLongitud(listEnProcesoModel.getSize());
-            (((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT())).agregarListaDC(elemento);
+            (((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT())).agregarListaDC(elemento, listEnProcesoModel.getSize());
             (((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT())).setLongitud(listEnProcesoModel.getSize());
-            (((ListaDC)this.porHacer.obtenerEspecifico(0).toDatoT().getT())).eliminarEspecifico(index);
+            (((ListaDC)this.porHacer.obtenerEspecifico(0).toDatoT().getT())).eliminarEspecifico(indice);
             (((ListaDC)this.porHacer.obtenerEspecifico(0).toDatoT().getT())).setLongitud(listPorHacerModel.getSize());
-            (((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT().getT())).eliminarEspecifico(index);
+            (((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT().getT())).eliminarEspecifico(indice);
             (((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT().getT())).setLongitud(listPorHacerModel.getSize());
             
             tarea.modificarEstado(tareaId, datosEstados[0].obtenerEspecifico(1).toDatoInt().getNumero());
@@ -322,7 +314,24 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
             
             int tareaId = (((ListaDC)this.enProceso.obtenerEspecifico(0).toDatoT().getT()))
                     .obtenerIdEspecifico(indice);
-            System.out.println(tareaId);
+            
+            System.out.println("Indice: " + indice + "\n" + "Id: " + tareaId);
+            
+            String elemento = ListaEnProceso.getSelectedValue();
+            Tarea tarea = new Tarea();
+            this.listPorHacerModel.addElement(elemento);
+            this.listEnProcesoModel.removeElement(elemento);
+            
+            ((ListaDC)this.porHacer.obtenerEspecifico(0).toDatoT().getT()).agregarListaDC(tareaId, listPorHacerModel.getSize());
+            ((ListaDC)this.porHacer.obtenerEspecifico(0).toDatoT().getT()).setLongitud(listPorHacerModel.getSize());
+            ((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT().getT()).agregarListaDC(elemento, listPorHacerModel.getSize());
+            ((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT().getT()).setLongitud(listPorHacerModel.getSize());
+            ((ListaDC)this.enProceso.obtenerEspecifico(0).toDatoT().getT()).eliminarEspecifico(indice);
+            ((ListaDC)this.enProceso.obtenerEspecifico(0).toDatoT().getT()).setLongitud(listEnProcesoModel.getSize());
+            ((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT()).eliminarEspecifico(indice);
+            ((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT().getT()).setLongitud(listEnProcesoModel.getSize());
+            
+            tarea.modificarEstado(tareaId, datosEstados[0].obtenerEspecifico(0).toDatoInt().getNumero());
         }
     }//GEN-LAST:event_BtnEnProceso_PorHacerActionPerformed
 
