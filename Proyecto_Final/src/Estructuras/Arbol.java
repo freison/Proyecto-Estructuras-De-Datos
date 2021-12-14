@@ -1,10 +1,13 @@
 
 package Estructuras;
 
-public class Arbol {
+import javax.swing.tree.DefaultMutableTreeNode;
+
+public class Arbol extends Estructura {
     // ATRIBUTOS.
     private NodoArbol raiz;
     private int longitud;
+    private static DefaultMutableTreeNode dato = new DefaultMutableTreeNode("Tareas Asignadas");
     
     // CONSTRUCTOR.
     public Arbol(){
@@ -71,5 +74,19 @@ public class Arbol {
     
     public Dato obtenerEspecifico(int indice){
         return obtenerEspecifico(indice, raiz);
+    }
+    
+    public DefaultMutableTreeNode obtenerEspecifico(NodoArbol n){
+        if(n!=null){
+            obtenerEspecifico(n.getEnlaceIzq());
+            DefaultMutableTreeNode aux = new DefaultMutableTreeNode(n.getElemento().toDatoString().getCadena());
+            dato.add(aux);
+            obtenerEspecifico(n.getEnlaceDer());
+        }
+        return dato;
+    }
+    
+    public DefaultMutableTreeNode obtenerEspecifico(){
+        return this.obtenerEspecifico(raiz);
     }
 }

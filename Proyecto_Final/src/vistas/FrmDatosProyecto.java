@@ -438,7 +438,7 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BtnFinalizado_EnProcesoActionPerformed
 
     private void BtnAgregarMiembroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarMiembroActionPerformed
-        FrmMiembros miembros = new FrmMiembros(idProyecto);
+        FrmMiembros miembros = new FrmMiembros(this.datosProyecto);
         miembros.setVisible(true);
         FrmHome.Desktop_Main.add(miembros);
         this.dispose();

@@ -2,7 +2,12 @@
 package vistas;
 
 import Estructuras.Pila;
+import Estructuras.Arbol;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import proyecto_final.Tarea;
 
 public class FrmHome extends javax.swing.JFrame {
 
@@ -13,8 +18,33 @@ public class FrmHome extends javax.swing.JFrame {
     public static int frameCountProject = 0;
     public static Pila datosUsuario = new Pila();
     
+    private static DefaultMutableTreeNode root = new DefaultMutableTreeNode("Tareas Asignadas");
+    private static DefaultTreeModel model;
+    
     public FrmHome() {
+        llenarTree();
         initComponents();
+        TreeTareas.setModel(model);
+        TreeTareas.setLayout(new BoxLayout(this.TreeTareas, BoxLayout.Y_AXIS));
+    }
+    
+    public void llenarTree(){
+        Tarea tarea = new Tarea();
+        Arbol Datos = tarea.listarTareasPorUsuario(datosUsuario.obtenerEspecifico(0).toDatoString().getCadena());
+                
+//        for(int i=0; i<Datos.getLongitud(); i++){
+//            DefaultMutableTreeNode nuevo = new DefaultMutableTreeNode(Datos.obtenerEspecifico(i).toDatoString().getCadena());
+//            root.add(nuevo);
+//        }
+
+        
+        model = new DefaultTreeModel(Datos.obtenerEspecifico());
+    }
+    
+    public void validarRol(String rol){
+        if(rol.equals("Editor") || rol.equals("Invitado")){
+            this.BtnMiembros.setVisible(false);
+        }
     }
 
     /**
@@ -29,13 +59,13 @@ public class FrmHome extends javax.swing.JFrame {
         Panel_Principal = new javax.swing.JPanel();
         Lb_Titulo = new javax.swing.JLabel();
         Lb_Saludo = new javax.swing.JLabel();
-        Panel_Izquierdo = new javax.swing.JPanel();
         BtnMiembros = new javax.swing.JButton();
         BtnProyectos = new javax.swing.JButton();
-        Panel_Tareas_Asignadas = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         Desktop_Main = new javax.swing.JDesktopPane();
         TxtBuscarTareas = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TreeTareas = new javax.swing.JTree();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,19 +79,6 @@ public class FrmHome extends javax.swing.JFrame {
         Lb_Saludo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Lb_Saludo.setForeground(new java.awt.Color(255, 255, 255));
         Lb_Saludo.setText("Bienvenido, ");
-
-        Panel_Izquierdo.setBackground(new java.awt.Color(102, 102, 102));
-
-        javax.swing.GroupLayout Panel_IzquierdoLayout = new javax.swing.GroupLayout(Panel_Izquierdo);
-        Panel_Izquierdo.setLayout(Panel_IzquierdoLayout);
-        Panel_IzquierdoLayout.setHorizontalGroup(
-            Panel_IzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 31, Short.MAX_VALUE)
-        );
-        Panel_IzquierdoLayout.setVerticalGroup(
-            Panel_IzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
 
         BtnMiembros.setBackground(new java.awt.Color(153, 216, 240));
         BtnMiembros.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -85,44 +102,34 @@ public class FrmHome extends javax.swing.JFrame {
             }
         });
 
-        Panel_Tareas_Asignadas.setBackground(new java.awt.Color(102, 102, 102));
-
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel1.setText("Tareas asginadas");
-
-        javax.swing.GroupLayout Panel_Tareas_AsignadasLayout = new javax.swing.GroupLayout(Panel_Tareas_Asignadas);
-        Panel_Tareas_Asignadas.setLayout(Panel_Tareas_AsignadasLayout);
-        Panel_Tareas_AsignadasLayout.setHorizontalGroup(
-            Panel_Tareas_AsignadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_Tareas_AsignadasLayout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        Panel_Tareas_AsignadasLayout.setVerticalGroup(
-            Panel_Tareas_AsignadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_Tareas_AsignadasLayout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
         Desktop_Main.setBackground(new java.awt.Color(20, 29, 38));
-        Desktop_Main.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, null, null, null, new java.awt.Color(153, 216, 240)));
+        Desktop_Main.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, null, null, null, new java.awt.Color(0, 172, 238)));
 
         javax.swing.GroupLayout Desktop_MainLayout = new javax.swing.GroupLayout(Desktop_Main);
         Desktop_Main.setLayout(Desktop_MainLayout);
         Desktop_MainLayout.setHorizontalGroup(
             Desktop_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 653, Short.MAX_VALUE)
+            .addGap(0, 690, Short.MAX_VALUE)
         );
         Desktop_MainLayout.setVerticalGroup(
             Desktop_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 436, Short.MAX_VALUE)
+            .addGap(0, 456, Short.MAX_VALUE)
         );
 
+        TxtBuscarTareas.setBackground(new java.awt.Color(20, 29, 38));
         TxtBuscarTareas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         TxtBuscarTareas.setForeground(new java.awt.Color(255, 255, 255));
         TxtBuscarTareas.setText("Buscar tareas");
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Tareas asginadas");
+
+        TreeTareas.setBackground(new java.awt.Color(20, 29, 38));
+        TreeTareas.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 172, 238)));
+        TreeTareas.setForeground(new java.awt.Color(153, 216, 240));
+        jScrollPane1.setViewportView(TreeTareas);
 
         javax.swing.GroupLayout Panel_PrincipalLayout = new javax.swing.GroupLayout(Panel_Principal);
         Panel_Principal.setLayout(Panel_PrincipalLayout);
@@ -135,38 +142,36 @@ public class FrmHome extends javax.swing.JFrame {
                     .addComponent(Lb_Saludo)
                     .addComponent(BtnMiembros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BtnProyectos, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                    .addComponent(Panel_Tareas_Asignadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Desktop_Main)
-                    .addGroup(Panel_PrincipalLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_PrincipalLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(TxtBuscarTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Panel_Izquierdo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TxtBuscarTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         Panel_PrincipalLayout.setVerticalGroup(
             Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_PrincipalLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Lb_Titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TxtBuscarTareas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Panel_Izquierdo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(Panel_PrincipalLayout.createSequentialGroup()
-                        .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Lb_Titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TxtBuscarTareas))
+                        .addComponent(Lb_Saludo)
+                        .addGap(67, 67, 67)
+                        .addComponent(BtnMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BtnProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(Panel_PrincipalLayout.createSequentialGroup()
-                                .addComponent(Lb_Saludo)
-                                .addGap(67, 67, 67)
-                                .addComponent(BtnMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BtnProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Panel_Tareas_Asignadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(Desktop_Main))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(Desktop_Main))
                 .addContainerGap())
         );
 
@@ -248,10 +253,10 @@ public class FrmHome extends javax.swing.JFrame {
     public static javax.swing.JDesktopPane Desktop_Main;
     private javax.swing.JLabel Lb_Saludo;
     private javax.swing.JLabel Lb_Titulo;
-    private javax.swing.JPanel Panel_Izquierdo;
     private javax.swing.JPanel Panel_Principal;
-    private javax.swing.JPanel Panel_Tareas_Asignadas;
+    private javax.swing.JTree TreeTareas;
     private javax.swing.JTextField TxtBuscarTareas;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

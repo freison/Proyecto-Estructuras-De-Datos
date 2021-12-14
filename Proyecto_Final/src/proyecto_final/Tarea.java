@@ -1,6 +1,7 @@
 
 package proyecto_final;
 
+import Estructuras.Arbol;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -144,13 +145,10 @@ public class Tarea {
         return tarea;
     }
     
-    public ListaSC[] listarTareasPorUsuario(String usuario){
-        ListaSC[] lista = new ListaSC[3];
+    public Arbol listarTareasPorUsuario(String usuario){
+        Arbol tareas = new Arbol();
         
         java.sql.Connection cn = null;
-        ListaSC tareas = new ListaSC();
-        ListaSC proyectos = new ListaSC();
-        ListaSC estados = new ListaSC();
         int indice = 0;
         
         try{
@@ -172,17 +170,8 @@ public class Tarea {
                                             "where usuario = '"+usuario+"'");
             
             while(rs.next()){
-                tareas.agregar(rs.getString("TAREA"));
-                tareas.getFin().setIndice(indice);
-                tareas.setLongitud(tareas.getLongitud()+1);
-                
-                proyectos.agregar(rs.getString("PROYECTO"));
-                proyectos.getFin().setIndice(indice);
-                proyectos.setLongitud(proyectos.getLongitud() + 1);
-                
-                estados.agregar(rs.getString("ESTADO"));
-                estados.getFin().setIndice(indice);
-                estados.setLongitud(estados.getLongitud() + 1);
+                tareas.crearRaiz(rs.getString("TAREA"), indice);
+                tareas.setLongitud(indice+1);
                 
                 indice++;
             }
@@ -196,11 +185,7 @@ public class Tarea {
             }
         }
         
-        lista[0] = tareas;
-        lista[1] = proyectos;
-        lista[2] = estados;
-        
-        return lista;
+        return tareas;
     }
     
     public ListaDC[] listarTareasPorProyecto(int proyectoId){

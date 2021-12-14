@@ -4,6 +4,7 @@ package vistas;
 import javax.swing.JOptionPane;
 import proyecto_final.Administrador;
 import Estructuras.Cola;
+import Estructuras.Pila;
 import javax.swing.table.DefaultTableModel;
 import proyecto_final.Proyecto;
 
@@ -14,7 +15,7 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
     private static final String nombresDeColumna[] = {
         "Id", "Nombres", "Apellidos", "Usuario", "Cedula", "Rol"
     };
-    private int proyectoId = 0;
+    private Pila datosProyecto;
 
     public FrmMiembros() {
         llenarTabla();
@@ -22,11 +23,11 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
         this.BtnAgregarAProyecto.setVisible(false);
     }
     
-    public FrmMiembros(int proyectoId) {
+    public FrmMiembros(Pila datosProyecto) {
         llenarTabla();
         initComponents();
         this.BtnAgregarAProyecto.setVisible(true);
-        this.proyectoId = proyectoId;
+        this.datosProyecto = datosProyecto;
     }
     
     private void llenarTabla(){
@@ -183,8 +184,8 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
             }
         }finally{
             Proyecto proyecto = new Proyecto();
-            if(!proyecto.validarParticipacion(miembroId, this.proyectoId)){
-                proyecto.agregarDetalleParticipacion(miembroId, proyectoId);
+            if(!proyecto.validarParticipacion(miembroId, Integer.parseInt(this.datosProyecto.obtenerEspecifico(0).toDatoString().getCadena()))){
+                proyecto.agregarDetalleParticipacion(miembroId, Integer.parseInt(this.datosProyecto.obtenerEspecifico(0).toDatoString().getCadena()));
             }
             else{
                 JOptionPane.showMessageDialog(null, "Miembro seleccionado\n ya pertenece a este proyecto");
