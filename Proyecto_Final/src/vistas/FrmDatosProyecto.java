@@ -21,7 +21,7 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
     private ListaDC<ListaDC> finalizado = new ListaDC<>();
     
     private int idProyecto = 0;
-    private boolean owener = false;
+    private boolean owner = false;
     
     Cola[] datosEstados;
     
@@ -42,8 +42,50 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
         datosEstados = estados.listarEstadosPorProyecto(this.idProyecto);
         
         llenarListas();
+        validarPropietario(this.idProyecto, FrmHome.datosUsuario.obtenerEspecifico(0).toDatoString().getCadena());
+        validarRol(FrmHome.datosUsuario.obtenerEspecifico(1).toDatoString().getCadena());
         
         this.Lb_Titulo.setText(datosProyecto.obtenerEspecifico(1).toDatoString().getCadena());
+    }
+    
+    public void validarPropietario(int Id, String usuario){
+        Proyecto proyecto = new Proyecto();
+        String propietario = proyecto.obtenerCreador(Id);
+        
+        if(!propietario.equalsIgnoreCase(usuario)){
+            this.BtnAgregarMiembro.setEnabled(false);
+            this.BtnAgregarMiembro.setVisible(false);
+        }else{
+            this.owner = true;
+        }
+    }
+    
+    public void validarRol(String rol){
+        if(rol.equalsIgnoreCase("Invitado")){
+            this.mostrarListas(false);
+            this.ocultarBotones();
+        }else if(rol.equalsIgnoreCase("Editor")){
+            this.mostrarListas(true);
+            
+            this.BtnAgregarTarea.setVisible(false);
+        }else if(rol.equalsIgnoreCase("Administrador") && !this.owner){
+            this.mostrarListas(true);
+        }
+    }
+    
+    public void mostrarListas(boolean mostrar){
+        this.ListaToDo.setEnabled(mostrar);
+        this.ListaEnProceso.setEnabled(mostrar);
+        this.ListaFinalizado.setEnabled(mostrar);
+    }
+    
+    public void ocultarBotones(){
+        this.BtnPorHacer_EnProceso.setVisible(false);
+        this.BtnEnProceso_PorHacer.setVisible(false);
+        this.BtnEnProceso_Finalizado.setVisible(false);
+        this.BtnFinalizado_EnProceso.setVisible(false);
+        
+        this.BtnAgregarTarea.setVisible(false);
     }
     
     public void llenarListaMiembros(int id){
