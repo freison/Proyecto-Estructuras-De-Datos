@@ -28,6 +28,7 @@ public class FrmHome extends javax.swing.JFrame {
         initComponents();
         TreeTareas.setModel(model);
         TreeTareas.setLayout(new BoxLayout(this.TreeTareas, BoxLayout.Y_AXIS));
+        this.BtnCerrarSesion.setVisible(false);
     }
     
     public void llenarTree(){

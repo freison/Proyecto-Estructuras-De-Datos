@@ -5,7 +5,9 @@ import javax.swing.JOptionPane;
 import proyecto_final.Administrador;
 import Estructuras.Cola;
 import Estructuras.Pila;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import proyecto_final.Proyecto;
 
 public class FrmMiembros extends javax.swing.JInternalFrame {
@@ -71,6 +73,7 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         GridMiembros = new javax.swing.JTable(modelo);
         BtnAgregarAProyecto = new javax.swing.JButton();
+        TxtBuscar = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(20, 29, 38));
         setClosable(true);
@@ -124,29 +127,46 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
             }
         });
 
+        TxtBuscar.setBackground(new java.awt.Color(20, 29, 38));
+        TxtBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TxtBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        TxtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtBuscarKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(319, 319, 319)
-                .addComponent(Lb_Titulo)
-                .addContainerGap(320, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(319, 319, 319)
+                        .addComponent(Lb_Titulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(BtnAgregarMiembro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnAgregarAProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BtnAgregarAProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TxtBuscar))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Lb_Titulo)
-                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Lb_Titulo)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(TxtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BtnAgregarMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,12 +213,20 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BtnAgregarAProyectoActionPerformed
 
+    private void TxtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBuscarKeyPressed
+        DefaultTableModel model = (DefaultTableModel) GridMiembros.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
+        GridMiembros.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(TxtBuscar.getText().trim()));
+    }//GEN-LAST:event_TxtBuscarKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAgregarAProyecto;
     private javax.swing.JButton BtnAgregarMiembro;
     private javax.swing.JTable GridMiembros;
     private javax.swing.JLabel Lb_Titulo;
+    private javax.swing.JTextField TxtBuscar;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
