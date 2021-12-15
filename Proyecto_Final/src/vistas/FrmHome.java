@@ -4,9 +4,11 @@ package vistas;
 import Estructuras.Pila;
 import Estructuras.Arbol;
 import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import proyecto_final.Main;
 import proyecto_final.Tarea;
 
 public class FrmHome extends javax.swing.JFrame {
@@ -62,10 +64,10 @@ public class FrmHome extends javax.swing.JFrame {
         BtnMiembros = new javax.swing.JButton();
         BtnProyectos = new javax.swing.JButton();
         Desktop_Main = new javax.swing.JDesktopPane();
-        TxtBuscarTareas = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TreeTareas = new javax.swing.JTree();
+        BtnCerrarSesion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,11 +118,6 @@ public class FrmHome extends javax.swing.JFrame {
             .addGap(0, 456, Short.MAX_VALUE)
         );
 
-        TxtBuscarTareas.setBackground(new java.awt.Color(20, 29, 38));
-        TxtBuscarTareas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        TxtBuscarTareas.setForeground(new java.awt.Color(255, 255, 255));
-        TxtBuscarTareas.setText("Buscar tareas");
-
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -130,6 +127,15 @@ public class FrmHome extends javax.swing.JFrame {
         TreeTareas.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 172, 238)));
         TreeTareas.setForeground(new java.awt.Color(153, 216, 240));
         jScrollPane1.setViewportView(TreeTareas);
+
+        BtnCerrarSesion.setBackground(new java.awt.Color(20, 29, 38));
+        BtnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/log-out.png"))); // NOI18N
+        BtnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnCerrarSesionMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout Panel_PrincipalLayout = new javax.swing.GroupLayout(Panel_Principal);
         Panel_Principal.setLayout(Panel_PrincipalLayout);
@@ -149,7 +155,7 @@ public class FrmHome extends javax.swing.JFrame {
                     .addComponent(Desktop_Main)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_PrincipalLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(TxtBuscarTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(BtnCerrarSesion)))
                 .addContainerGap())
         );
         Panel_PrincipalLayout.setVerticalGroup(
@@ -158,7 +164,7 @@ public class FrmHome extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Lb_Titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TxtBuscarTareas))
+                    .addComponent(BtnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Panel_PrincipalLayout.createSequentialGroup()
@@ -208,6 +214,16 @@ public class FrmHome extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnProyectosActionPerformed
 
+    private void BtnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCerrarSesionMouseClicked
+        frameCount = 0;
+        frameCountProject = 0;
+        datosUsuario = new Pila();
+        root = null;
+        model = null;
+        Main.loadMainForm();
+        this.dispose();
+    }//GEN-LAST:event_BtnCerrarSesionMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -248,6 +264,7 @@ public class FrmHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BtnCerrarSesion;
     private javax.swing.JButton BtnMiembros;
     private javax.swing.JButton BtnProyectos;
     public static javax.swing.JDesktopPane Desktop_Main;
@@ -255,7 +272,6 @@ public class FrmHome extends javax.swing.JFrame {
     private javax.swing.JLabel Lb_Titulo;
     private javax.swing.JPanel Panel_Principal;
     private javax.swing.JTree TreeTareas;
-    private javax.swing.JTextField TxtBuscarTareas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
