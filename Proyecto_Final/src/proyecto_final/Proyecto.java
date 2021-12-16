@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import Estructuras.Pila;
 import Estructuras.ListaES;
+import Estructuras.ListaSC;
 import javax.swing.JOptionPane;
 
 public class Proyecto {
@@ -243,10 +244,10 @@ public class Proyecto {
         return listas;
     }
     
-    public ListaES listarMiembros(int id){
+    public ListaSC listarMiembros(int id){
         java.sql.Connection cn = null;
         int contador = 0;
-        ListaES nombres = new ListaES();
+        ListaSC nombres = new ListaSC();
         try{
             cn = connection.getConnection();
             
@@ -260,7 +261,7 @@ public class Proyecto {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
-                nombres.Agregar(rs.getString("Nombres"), contador);
+                nombres.agregar(rs.getString("Nombres"), contador);
                 nombres.setLongitud(nombres.getLongitud()+1);
                 contador++;
             }

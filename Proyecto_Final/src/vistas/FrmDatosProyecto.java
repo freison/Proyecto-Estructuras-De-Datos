@@ -7,8 +7,10 @@ import proyecto_final.EstadoTarea;
 import Estructuras.Pila;
 import Estructuras.Cola;
 import Estructuras.ListaES;
+import Estructuras.ListaSC;
 import Estructuras.ListaDC;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class FrmDatosProyecto extends javax.swing.JInternalFrame {
     private Pila datosProyecto;
@@ -90,7 +92,7 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
     
     public void llenarListaMiembros(int id){
         Proyecto proyecto = new Proyecto();
-        ListaES nombres = proyecto.listarMiembros(id);
+        ListaSC nombres = proyecto.listarMiembros(id);
         listModel = new DefaultListModel();
         
         for(int i=0; i<nombres.getLongitud(); i++){
@@ -171,13 +173,6 @@ public class FrmDatosProyecto extends javax.swing.JInternalFrame {
         this.enProceso.agregarListaDC(enProcesoDescripcionesTEMP, 1);
         this.finalizado.agregarListaDC(finalizadoIdTEMP, 0);
         this.finalizado.agregarListaDC(finalizadoDescripcionesTEMP, 1);
-        
-        //((ListaDC)this.porHacer.obtenerEspecifico(1).toDatoT()
-          //          .getT()).mostrarListaDC();
-        ((ListaDC)this.enProceso.obtenerEspecifico(1).toDatoT()
-                    .getT()).mostrarListaDC();
-        ((ListaDC)this.finalizado.obtenerEspecifico(1).toDatoT()
-                    .getT()).mostrarListaDC();
     }
 
     @SuppressWarnings("unchecked")

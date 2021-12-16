@@ -34,12 +34,6 @@ public class FrmHome extends javax.swing.JFrame {
     public void llenarTree(){
         Tarea tarea = new Tarea();
         Arbol Datos = tarea.listarTareasPorUsuario(datosUsuario.obtenerEspecifico(0).toDatoString().getCadena());
-                
-//        for(int i=0; i<Datos.getLongitud(); i++){
-//            DefaultMutableTreeNode nuevo = new DefaultMutableTreeNode(Datos.obtenerEspecifico(i).toDatoString().getCadena());
-//            root.add(nuevo);
-//        }
-
         
         model = new DefaultTreeModel(Datos.obtenerEspecifico());
     }

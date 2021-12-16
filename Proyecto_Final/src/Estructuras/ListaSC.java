@@ -36,11 +36,13 @@ public class ListaSC {
         }
     }
     
-    public void agregar(String cadena){
-        Dato dato = new DatoString();
-        dato.toDatoString().setCadena(cadena);
+    public void agregar(String cadena, int indice){
+        DatoString dato = new DatoString();
+        dato.setCadena(cadena);
         NodoLSC nuevo = new NodoLSC();
         nuevo.setElemento(dato);
+        
+        nuevo.setIndice(indice);
         
         if(isLSCEmpty()){
             inicio = nuevo;
@@ -70,13 +72,20 @@ public class ListaSC {
         }
     }
     
-    public Dato ObtenerEspecifico(int indice){
+    public Dato obtenerEspecifico(int indice){
         Dato datoAuxiliar = null;
+        boolean flag = false;
         if(!isLSCEmpty()){
             NodoLSC aux = inicio;
-            while(aux!=null){
-                if(aux.getIndice() == indice){
+            if(aux.getIndice() == indice){
+                datoAuxiliar = aux.getElemento();
+                flag = true;
+            }
+            aux = aux.getSiguiente();
+            while(aux!=inicio && !flag){
+                if (aux.getIndice() == indice) {
                     datoAuxiliar = aux.getElemento();
+                    flag = true;
                 }
                 aux = aux.getSiguiente();
             }
