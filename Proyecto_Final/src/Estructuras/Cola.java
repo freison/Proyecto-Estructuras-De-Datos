@@ -3,7 +3,7 @@ package Estructuras;
 
 import javax.swing.JOptionPane;
 
-public class Cola {
+public class Cola<T extends Estructura> extends Estructura {
     // ATRIBUTOS DE LA CLASE.
     private NodoCola inicio;
     private NodoCola fin;
@@ -68,6 +68,11 @@ public class Cola {
             fin.setSiguiente(nuevo);
             fin = nuevo;
         }
+    }
+    
+    public void encolar(T t, int indice){
+        DatoT dato = new DatoT();
+        dato.setT(t);
     }
     
     public void desencolar(){

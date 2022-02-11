@@ -4,7 +4,11 @@ package vistas;
 import javax.swing.JOptionPane;
 import proyecto_final.Administrador;
 import Estructuras.Cola;
+import Estructuras.Pila;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import proyecto_final.Proyecto;
 
 public class FrmMiembros extends javax.swing.JInternalFrame {
     
@@ -13,10 +17,19 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
     private static final String nombresDeColumna[] = {
         "Id", "Nombres", "Apellidos", "Usuario", "Cedula", "Rol"
     };
+    private Pila datosProyecto;
 
     public FrmMiembros() {
         llenarTabla();
         initComponents();
+        this.BtnAgregarAProyecto.setVisible(false);
+    }
+    
+    public FrmMiembros(Pila datosProyecto) {
+        llenarTabla();
+        initComponents();
+        this.BtnAgregarAProyecto.setVisible(true);
+        this.datosProyecto = datosProyecto;
     }
     
     private void llenarTabla(){
@@ -59,6 +72,8 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
         BtnAgregarMiembro = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         GridMiembros = new javax.swing.JTable(modelo);
+        BtnAgregarAProyecto = new javax.swing.JButton();
+        TxtBuscar = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(20, 29, 38));
         setClosable(true);
@@ -88,7 +103,7 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
         Lb_Titulo.setForeground(new java.awt.Color(255, 255, 255));
         Lb_Titulo.setText("Miembros");
 
-        BtnAgregarMiembro.setBackground(new java.awt.Color(102, 102, 102));
+        BtnAgregarMiembro.setBackground(new java.awt.Color(20, 29, 38));
         BtnAgregarMiembro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BtnAgregarMiembro.setForeground(new java.awt.Color(255, 255, 255));
         BtnAgregarMiembro.setText("Agregar");
@@ -98,32 +113,65 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
             }
         });
 
+        GridMiembros.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         GridMiembros.setModel(modelo);
         jScrollPane1.setViewportView(GridMiembros);
+
+        BtnAgregarAProyecto.setBackground(new java.awt.Color(20, 29, 38));
+        BtnAgregarAProyecto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BtnAgregarAProyecto.setForeground(new java.awt.Color(255, 255, 255));
+        BtnAgregarAProyecto.setText("Agregar a Proyecto");
+        BtnAgregarAProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarAProyectoActionPerformed(evt);
+            }
+        });
+
+        TxtBuscar.setBackground(new java.awt.Color(20, 29, 38));
+        TxtBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TxtBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        TxtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtBuscarKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(319, 319, 319)
-                .addComponent(Lb_Titulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BtnAgregarMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(319, 319, 319)
+                        .addComponent(Lb_Titulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BtnAgregarMiembro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnAgregarAProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TxtBuscar))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Lb_Titulo)
-                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BtnAgregarMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Lb_Titulo)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(TxtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(BtnAgregarMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BtnAgregarAProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -143,11 +191,42 @@ public class FrmMiembros extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_BtnAgregarMiembroActionPerformed
 
+    private void BtnAgregarAProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarAProyectoActionPerformed
+        int miembroId = 0;
+        
+        try{
+            miembroId = Integer.parseInt(GridMiembros.getValueAt(GridMiembros.getSelectedRow(), 0).toString());
+        }catch(IndexOutOfBoundsException | NullPointerException e){
+            try{
+                miembroId = Integer.parseInt(GridMiembros.getModel().getValueAt(0, 0).toString());
+            }catch(NullPointerException ex){
+                System.out.println(ex.getMessage());
+            }
+        }finally{
+            Proyecto proyecto = new Proyecto();
+            if(!proyecto.validarParticipacion(miembroId, Integer.parseInt(this.datosProyecto.obtenerEspecifico(0).toDatoString().getCadena()))){
+                proyecto.agregarDetalleParticipacion(miembroId, Integer.parseInt(this.datosProyecto.obtenerEspecifico(0).toDatoString().getCadena()));
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Miembro seleccionado\n ya pertenece a este proyecto");
+            }
+        }
+    }//GEN-LAST:event_BtnAgregarAProyectoActionPerformed
+
+    private void TxtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtBuscarKeyPressed
+        DefaultTableModel model = (DefaultTableModel) GridMiembros.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
+        GridMiembros.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(TxtBuscar.getText().trim()));
+    }//GEN-LAST:event_TxtBuscarKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnAgregarAProyecto;
     private javax.swing.JButton BtnAgregarMiembro;
     private javax.swing.JTable GridMiembros;
     private javax.swing.JLabel Lb_Titulo;
+    private javax.swing.JTextField TxtBuscar;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,10 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import proyecto_final.Miembro;
 import proyecto_final.Administrador;
+import Estructuras.Pila;
 
 public class FrmLogin extends javax.swing.JFrame {
     
-    public static FrmHome home = new FrmHome();
+    // public static FrmHome home;
 
     public FrmLogin() {
         initComponents();
@@ -52,6 +53,11 @@ public class FrmLogin extends javax.swing.JFrame {
 
         TxtClave.setBackground(new java.awt.Color(20, 29, 38));
         TxtClave.setForeground(new java.awt.Color(255, 255, 255));
+        TxtClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtClaveKeyPressed(evt);
+            }
+        });
 
         BtnIngresar.setBackground(new java.awt.Color(153, 216, 240));
         BtnIngresar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -120,6 +126,12 @@ public class FrmLogin extends javax.swing.JFrame {
         this.iniciarSesion();
     }//GEN-LAST:event_BtnIngresarActionPerformed
 
+    private void TxtClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtClaveKeyPressed
+        if(evt.getKeyCode() == 10){
+            this.iniciarSesion();
+        }
+    }//GEN-LAST:event_TxtClaveKeyPressed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -158,16 +170,28 @@ public class FrmLogin extends javax.swing.JFrame {
         try{
             if(miembro.iniciarSesion(this.TxtUsuario.getText().trim(), this.TxtClave.getText().trim())){
                 String usuario = TxtUsuario.getText().trim();
+                String rol = miembro.getRol(usuario);
+                
+                FrmHome.datosUsuario.apilar(usuario);
+                FrmHome.datosUsuario.getCima().setIndice(0);
+                FrmHome.datosUsuario.apilar(rol);
+                FrmHome.datosUsuario.getCima().setIndice(1);
+                
+                FrmHome home  = new FrmHome();
+                
+                home.setLb_Saludo_Text(FrmHome.datosUsuario.obtenerEspecifico(0).toDatoString().getCadena());
+                
                 home.setLocationRelativeTo(null);
                 home.setExtendedState(MAXIMIZED_BOTH);
                 home.setVisible(true);
+                home.validarRol(FrmHome.datosUsuario.obtenerEspecifico(1).toDatoString().getCadena());
                 this.dispose();
             }
             else{
                 JOptionPane.showMessageDialog(null, "Usuario y/o clave incorrectos");
             }
         }catch(NullPointerException e){
-            
+            System.out.println(e.getMessage());
         }
     }
 

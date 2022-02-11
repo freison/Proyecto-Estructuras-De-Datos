@@ -1,14 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vistas;
 
-/**
- *
- * @author Freison
- */
+import Estructuras.Pila;
+import Estructuras.Arbol;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import proyecto_final.Main;
+import proyecto_final.Tarea;
+
 public class FrmHome extends javax.swing.JFrame {
 
     /**
@@ -16,9 +18,30 @@ public class FrmHome extends javax.swing.JFrame {
      */
     public static int frameCount = 0;
     public static int frameCountProject = 0;
+    public static Pila datosUsuario = new Pila();
+    
+    private static DefaultMutableTreeNode root = new DefaultMutableTreeNode("Tareas Asignadas");
+    private static DefaultTreeModel model;
     
     public FrmHome() {
+        llenarTree();
         initComponents();
+        TreeTareas.setModel(model);
+        TreeTareas.setLayout(new BoxLayout(this.TreeTareas, BoxLayout.Y_AXIS));
+        this.BtnCerrarSesion.setVisible(false);
+    }
+    
+    public void llenarTree(){
+        Tarea tarea = new Tarea();
+        Arbol Datos = tarea.listarTareasPorUsuario(datosUsuario.obtenerEspecifico(0).toDatoString().getCadena());
+        
+        model = new DefaultTreeModel(Datos.obtenerEspecifico());
+    }
+    
+    public void validarRol(String rol){
+        if(rol.equals("Editor") || rol.equals("Invitado")){
+            this.BtnMiembros.setVisible(false);
+        }
     }
 
     /**
@@ -33,12 +56,13 @@ public class FrmHome extends javax.swing.JFrame {
         Panel_Principal = new javax.swing.JPanel();
         Lb_Titulo = new javax.swing.JLabel();
         Lb_Saludo = new javax.swing.JLabel();
-        Panel_Izquierdo = new javax.swing.JPanel();
         BtnMiembros = new javax.swing.JButton();
         BtnProyectos = new javax.swing.JButton();
-        Panel_Tareas_Asignadas = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         Desktop_Main = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TreeTareas = new javax.swing.JTree();
+        BtnCerrarSesion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,19 +76,6 @@ public class FrmHome extends javax.swing.JFrame {
         Lb_Saludo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Lb_Saludo.setForeground(new java.awt.Color(255, 255, 255));
         Lb_Saludo.setText("Bienvenido, ");
-
-        Panel_Izquierdo.setBackground(new java.awt.Color(102, 102, 102));
-
-        javax.swing.GroupLayout Panel_IzquierdoLayout = new javax.swing.GroupLayout(Panel_Izquierdo);
-        Panel_Izquierdo.setLayout(Panel_IzquierdoLayout);
-        Panel_IzquierdoLayout.setHorizontalGroup(
-            Panel_IzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 31, Short.MAX_VALUE)
-        );
-        Panel_IzquierdoLayout.setVerticalGroup(
-            Panel_IzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
 
         BtnMiembros.setBackground(new java.awt.Color(153, 216, 240));
         BtnMiembros.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -80,6 +91,7 @@ public class FrmHome extends javax.swing.JFrame {
         BtnProyectos.setBackground(new java.awt.Color(153, 216, 240));
         BtnProyectos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnProyectos.setForeground(new java.awt.Color(0, 172, 238));
+        BtnProyectos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Project.png"))); // NOI18N
         BtnProyectos.setText("Proyectos");
         BtnProyectos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,40 +99,38 @@ public class FrmHome extends javax.swing.JFrame {
             }
         });
 
-        Panel_Tareas_Asignadas.setBackground(new java.awt.Color(102, 102, 102));
-
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel1.setText("Tareas asginadas");
-
-        javax.swing.GroupLayout Panel_Tareas_AsignadasLayout = new javax.swing.GroupLayout(Panel_Tareas_Asignadas);
-        Panel_Tareas_Asignadas.setLayout(Panel_Tareas_AsignadasLayout);
-        Panel_Tareas_AsignadasLayout.setHorizontalGroup(
-            Panel_Tareas_AsignadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_Tareas_AsignadasLayout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        Panel_Tareas_AsignadasLayout.setVerticalGroup(
-            Panel_Tareas_AsignadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Panel_Tareas_AsignadasLayout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
         Desktop_Main.setBackground(new java.awt.Color(20, 29, 38));
-        Desktop_Main.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, null, null, null, new java.awt.Color(153, 216, 240)));
+        Desktop_Main.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, null, null, null, new java.awt.Color(0, 172, 238)));
 
         javax.swing.GroupLayout Desktop_MainLayout = new javax.swing.GroupLayout(Desktop_Main);
         Desktop_Main.setLayout(Desktop_MainLayout);
         Desktop_MainLayout.setHorizontalGroup(
             Desktop_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 653, Short.MAX_VALUE)
+            .addGap(0, 690, Short.MAX_VALUE)
         );
         Desktop_MainLayout.setVerticalGroup(
             Desktop_MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addGap(0, 456, Short.MAX_VALUE)
         );
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Tareas asginadas");
+
+        TreeTareas.setBackground(new java.awt.Color(20, 29, 38));
+        TreeTareas.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 172, 238)));
+        TreeTareas.setForeground(new java.awt.Color(153, 216, 240));
+        jScrollPane1.setViewportView(TreeTareas);
+
+        BtnCerrarSesion.setBackground(new java.awt.Color(20, 29, 38));
+        BtnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/log-out.png"))); // NOI18N
+        BtnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnCerrarSesionMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout Panel_PrincipalLayout = new javax.swing.GroupLayout(Panel_Principal);
         Panel_Principal.setLayout(Panel_PrincipalLayout);
@@ -133,32 +143,36 @@ public class FrmHome extends javax.swing.JFrame {
                     .addComponent(Lb_Saludo)
                     .addComponent(BtnMiembros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BtnProyectos, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                    .addComponent(Panel_Tareas_Asignadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Desktop_Main)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Panel_Izquierdo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Desktop_Main)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_PrincipalLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(BtnCerrarSesion)))
                 .addContainerGap())
         );
         Panel_PrincipalLayout.setVerticalGroup(
             Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_PrincipalLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Lb_Titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Panel_Izquierdo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(Panel_PrincipalLayout.createSequentialGroup()
-                        .addComponent(Lb_Titulo)
+                        .addComponent(Lb_Saludo)
+                        .addGap(67, 67, 67)
+                        .addComponent(BtnMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(Panel_PrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(Panel_PrincipalLayout.createSequentialGroup()
-                                .addComponent(Lb_Saludo)
-                                .addGap(67, 67, 67)
-                                .addComponent(BtnMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BtnProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Panel_Tareas_Asignadas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(Desktop_Main))))
+                        .addComponent(BtnProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(Desktop_Main))
                 .addContainerGap())
         );
 
@@ -195,6 +209,16 @@ public class FrmHome extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnProyectosActionPerformed
 
+    private void BtnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCerrarSesionMouseClicked
+        frameCount = 0;
+        frameCountProject = 0;
+        datosUsuario = new Pila();
+        root = null;
+        model = null;
+        Main.loadMainForm();
+        this.dispose();
+    }//GEN-LAST:event_BtnCerrarSesionMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -230,15 +254,20 @@ public class FrmHome extends javax.swing.JFrame {
         });
     }
 
+    public void setLb_Saludo_Text(String text) {
+        this.Lb_Saludo.setText(this.Lb_Saludo.getText() + text);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BtnCerrarSesion;
     private javax.swing.JButton BtnMiembros;
     private javax.swing.JButton BtnProyectos;
     public static javax.swing.JDesktopPane Desktop_Main;
     private javax.swing.JLabel Lb_Saludo;
     private javax.swing.JLabel Lb_Titulo;
-    private javax.swing.JPanel Panel_Izquierdo;
     private javax.swing.JPanel Panel_Principal;
-    private javax.swing.JPanel Panel_Tareas_Asignadas;
+    private javax.swing.JTree TreeTareas;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,11 @@ public class Pila {
     // ATRIBUTOS DE LA CLASE.
     private NodoPila cima;
     
+    // GETTER Y SETTERS DE LA CLASE.
+    public NodoPila getCima(){
+        return this.cima;
+    }
+    
     // METODOS DE LA CLASE.
     public boolean isPilaEmpty(){
         if(cima ==null){
@@ -41,5 +46,20 @@ public class Pila {
             JOptionPane.showConfirmDialog(null, 
                     "No se pueden extraer elementos, pila vacía");
         }
+    }
+    
+    public Dato obtenerEspecifico(int indice){
+        Dato datoAuxiliar = null;
+        if(!isPilaEmpty()){
+            NodoPila aux = cima;
+            while(aux!=null){
+                if(indice == aux.getIndice()){
+                    datoAuxiliar = aux.getElemento();
+                }
+                aux = aux.getSiguiente();
+            }
+        }
+        
+        return datoAuxiliar;
     }
 }

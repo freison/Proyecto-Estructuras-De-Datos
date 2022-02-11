@@ -37,13 +37,15 @@ public class ListaES {
     public void Agregar(String cadena, int indice){
         Dato dato = new DatoString();
         dato.toDatoString().setCadena(cadena);
-        dato.toDatoString().setIndice(indice);
+        // dato.toDatoString().setIndice(indice);
         NodoLES nuevo = new NodoLES();
+        nuevo.setElemento(dato);
+        nuevo.setIndice(indice);
         
         if(isEmptyLES()){
             inicio = nuevo;
         }
-        else if(dato.toDatoString().getCadena().compareTo(inicio.getDato().toDatoString().getCadena())<0){
+        else if(dato.toDatoString().getCadena().compareTo(inicio.getElemento().toDatoString().getCadena())<0){
             nuevo.setSiguiente(inicio);
             inicio = nuevo;
         }
@@ -53,7 +55,7 @@ public class ListaES {
         else{
             NodoLES aux = inicio;
             while((aux.getSiguiente()!=null) && 
-                    (aux.getSiguiente().getDato().toDatoString().getCadena().compareTo(dato.toDatoString().getCadena())<0)){
+                    (aux.getSiguiente().getElemento().toDatoString().getCadena().compareTo(dato.toDatoString().getCadena())<0)){
                 aux = aux.getSiguiente();
             }
             nuevo.setSiguiente(aux.getSiguiente());
@@ -73,7 +75,7 @@ public class ListaES {
     
     public void extraerEspecifico(String cadena){
         if(!isEmptyLES()){
-            if(inicio.getDato().toDatoString().getCadena().equalsIgnoreCase(cadena)){
+            if(inicio.getElemento().toDatoString().getCadena().equalsIgnoreCase(cadena)){
                 inicio = inicio.getSiguiente();
             }
             else{
@@ -82,7 +84,7 @@ public class ListaES {
                 anterior = inicio;
                 auxiliar = inicio.getSiguiente();
                 while((auxiliar!=null) &&
-                        (!auxiliar.getDato().toDatoString().getCadena().equals(cadena))){
+                        (!auxiliar.getElemento().toDatoString().getCadena().equals(cadena))){
                     anterior = anterior.getSiguiente();
                     auxiliar = auxiliar.getSiguiente();
                 }
@@ -91,5 +93,20 @@ public class ListaES {
                 }
             }
         }
+    }
+    
+    public Dato obtenerEspecifico(int indice){
+        Dato datoAuxiliar = null;
+        if(!isEmptyLES()){
+            NodoLES aux = inicio;
+            while(aux!=null){
+                if(aux.getIndice() == indice){
+                    datoAuxiliar = aux.getElemento();
+                }
+                aux = aux.getSiguiente();
+            }
+        }
+        
+        return datoAuxiliar;
     }
 }
